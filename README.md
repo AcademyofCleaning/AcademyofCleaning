@@ -14,3 +14,7 @@ pre-requiste: node.js is already installed on your machine
 
 ## Active endpoints
 * ANY - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/home 
+
+## Deploying the Application
+* If you wish to deploy, push to the branch 'deploy-to-heroku' and our pipeline will run
+* A demo can be accessed here: https://serene-ocean-22768.herokuapp.com/
