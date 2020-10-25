@@ -1,0 +1,6 @@
+# MAC Files
+.DS_Store
+
+# Serverless Folders
+.serverless
+**/.serverless/**
