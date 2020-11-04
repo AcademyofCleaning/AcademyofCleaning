@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './NavBar';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +7,7 @@ import { Link } from 'react-router-dom';
 const HomePage = () => {
     return (
         <React.Fragment>
+            <NavBar />
             <div className="homepageText">
                 <h1>Academy of Cleaning</h1>
                 <p>The academy of cleaning is a platform that advocates for and empowers cleaners to find new business through leveraging the power of social proof!</p>

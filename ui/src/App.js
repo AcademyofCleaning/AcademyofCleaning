@@ -23,7 +23,6 @@ function App() {
         </Route>
         <Route exact path="/profilePage/:id" component={ProfilePage}/>
       </Switch>
-
       </div>
     </Router>
   );
