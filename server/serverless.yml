@@ -26,6 +26,12 @@ functions:
       - http:
           path: /home
           method: any
+  viewProfile:
+    handler: handler.viewProfile
+    events:
+      - http:
+          path: /viewProfile
+          method: GET
 
 #    Define function environment variables here
 #    environment:
