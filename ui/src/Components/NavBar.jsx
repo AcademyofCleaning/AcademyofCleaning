@@ -53,7 +53,6 @@ const Example = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-<<<<<<< HEAD
           <NavbarText>
             <UncontrolledDropdown>
               <DropdownToggle nav caret>
@@ -73,9 +72,6 @@ const Example = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </NavbarText>
-=======
-          <NavbarText>Get Hired!</NavbarText>
->>>>>>> added NavBar component and added Jumbotron to homepage
         </Collapse>
       </Navbar>
     </div>
