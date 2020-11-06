@@ -8,6 +8,8 @@ import {
 import CreateProfile from "./Components/CreateProfile";
 import HomePage from './Components/HomePage';
 import NavBar from './Components/NavBar';
+import ProfilePage from "./Components/ProfilePage";
+
 
 
 // rendering app
@@ -24,6 +26,7 @@ function App() {
           <NavBar />
           <CreateProfile />
         </Route>
+        <Route exact path="/profilePage/:id" component={ProfilePage} />
       </Switch>
       </div>
     </Router>

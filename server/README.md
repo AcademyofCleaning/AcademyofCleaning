@@ -12,6 +12,21 @@ pre-requiste: node.js is already installed on your machine
 
 ## Active endpoints
 * ANY - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/home
+* GET - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile
+    * [REQUIRED] URL Param id 
+
+```        
+    RESPONSE    
+        {
+            "result": {
+                "profile_id": id,
+                "first_name": Name,
+                "last_name": LastName,
+                "contact_num": Number,
+                "contact_ext": ext
+                }
+        }
+```
 
 ## Deploying the Application
 * If you wish to deploy, push to the branch 'deploy-to-heroku' and our pipeline will run
