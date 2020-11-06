@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import CreateProfile from "./Components/CreateProfile";
 import HomePage from './Components/HomePage';
+import NavBar from './Components/NavBar';
 
 
 // rendering app
@@ -16,13 +17,14 @@ function App() {
       <div className="App">
       <Switch>
         <Route exact path="/">
+          <NavBar />
           <HomePage />
         </Route>
         <Route exact path="/createProfile">
+          <NavBar />
           <CreateProfile />
         </Route>
       </Switch>
-        
       </div>
     </Router>
   );
