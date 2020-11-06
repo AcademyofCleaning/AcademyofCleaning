@@ -3,7 +3,6 @@ import NavBar from './NavBar';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-
 const HomePage = () => {
     return (
         <React.Fragment>

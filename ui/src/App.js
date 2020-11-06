@@ -16,9 +16,11 @@ function App() {
       <div className="App">
       <Switch>
         <Route exact path="/">
+          <NavBar />
           <HomePage />
         </Route>
         <Route exact path="/createProfile">
+          <NavBar />
           <CreateProfile />
         </Route>
         <Route exact path="/profilePage/:id" component={ProfilePage}/>
