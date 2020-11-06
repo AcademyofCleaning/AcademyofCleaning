@@ -27,7 +27,7 @@ const Example = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/preview/">Preview</NavLink>
+              <NavLink href="/search/">Search</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/getCertified/">Get Certified</NavLink>
@@ -53,7 +53,25 @@ const Example = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Get Hired!</NavbarText>
+          <NavbarText>
+            <UncontrolledDropdown>
+              <DropdownToggle nav caret>
+                My Account
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem href="/profilePage/:id">
+                  Edit info
+                </DropdownItem>
+                <DropdownItem href="/preferences/:id">
+                  View preferences
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem href="/signout/:id">
+                  Sign out
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </NavbarText>
         </Collapse>
       </Navbar>
     </div>
