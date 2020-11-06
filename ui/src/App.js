@@ -23,9 +23,7 @@ function App() {
         <Route exact path="/createProfile">
           <CreateProfile />
         </Route>
-        <Route exact path="/profilePage">
-          <ProfilePage />
-        </Route>
+        <Route exact path="/profilePage/:id" component={ProfilePage}/>
       </Switch>
 
       </div>
