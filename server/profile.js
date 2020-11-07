@@ -18,7 +18,7 @@ module.exports.getProfile = async (event, context, callback) => {
 
   const result = await pool.query(selectProfile, values);
 
-  if(result.rowCount !=1){
+  if(result.rowCount !=1) {
     return {
       statusCode: 400,
     }

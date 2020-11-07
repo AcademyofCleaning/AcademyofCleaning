@@ -9,8 +9,6 @@ import CreateProfile from "./Components/CreateProfile";
 import HomePage from './Components/HomePage';
 import ProfilePage from "./Components/ProfilePage";
 
-
-
 // rendering app
 function App() {
   return (

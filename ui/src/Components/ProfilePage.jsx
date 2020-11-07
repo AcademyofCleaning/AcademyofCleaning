@@ -14,12 +14,9 @@ export default class ProfilePage extends React.Component {
 
   async componentDidMount()
   {
-    // const { match: { params } } = this.props;
-    // console.log(match);
     const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=${this.state.props.match.params.id}`;
     const resp = await fetch(url);
     const data = await resp.json();
-    console.log();
     this.setState({profile: data, loading: false});
   }
 
