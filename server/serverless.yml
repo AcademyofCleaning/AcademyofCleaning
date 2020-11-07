@@ -27,6 +27,13 @@ functions:
           path: /home
           method: any
 
+  insertFormData:
+    handler: handler.insertFormData
+    events:
+      - http:
+          path: /insertFormData
+          method: put
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
