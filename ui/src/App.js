@@ -16,14 +16,12 @@ function App() {
       <div className="App">
       <Switch>
         <Route exact path="/">
-          <NavBar />
           <HomePage />
         </Route>
-        <Route exact path="/createProfile">
-          <NavBar />
+        <Route exact path="/profiles/create">
           <CreateProfile />
         </Route>
-        <Route exact path="/profilePage/:id" component={ProfilePage}/>
+        <Route exact path="/profiles/:id" component={ProfilePage}/>
       </Switch>
       </div>
     </Router>

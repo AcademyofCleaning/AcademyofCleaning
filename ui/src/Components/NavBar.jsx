@@ -14,7 +14,7 @@ import {
   NavbarText
 } from 'reactstrap';
 
-const Example = (props) => {
+const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -59,10 +59,10 @@ const Example = (props) => {
                 My Account
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem href="/profilePage/:id">
+                <DropdownItem href="/profiles/:id">
                   Edit info
                 </DropdownItem>
-                <DropdownItem href="/preferences/:id">
+                <DropdownItem href="/profiles/preferences/:id">
                   View preferences
                 </DropdownItem>
                 <DropdownItem divider />
@@ -78,4 +78,4 @@ const Example = (props) => {
   );
 }
 
-export default Example;
+export default NavBar;
