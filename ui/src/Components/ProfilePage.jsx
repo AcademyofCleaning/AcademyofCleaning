@@ -63,14 +63,6 @@ export default class ProfilePage extends React.Component {
                   </tr>
                 </tbody>
               </Table>
-              {/* <FormGroup row>
-                  <Label sm={6}>Contact Number</Label>
-                  <Label sm={6}>{this.state.profile.result.contact_num}</Label>
-                  <Label sm={6}>Extension</Label>
-                  <Col sm={6}>
-                    <Label sm={6}>{this.state.profile.result.contact_ext}</Label>
-                  </Col>
-              </FormGroup> */}
             </div>
           )}
         </Form>
