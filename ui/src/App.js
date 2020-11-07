@@ -18,12 +18,11 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route exact path="/createProfile">
+        <Route exact path="/profiles/create">
           <CreateProfile />
         </Route>
-        <Route exact path="/profilePage/:id" component={ProfilePage}/>
+        <Route exact path="/profiles/:id" component={ProfilePage}/>
       </Switch>
-
       </div>
     </Router>
   );

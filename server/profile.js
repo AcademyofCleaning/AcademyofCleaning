@@ -8,8 +8,7 @@ const pool = new Pool({
   port: process.env.port,
 })
 
-
-module.exports.getProfile = async (event, context, callback) => {
+module.exports.getProfile = async (event) => {
 
   let profileId = Number(event.queryStringParameters.id);
 
