@@ -16,7 +16,8 @@ class CreateProfile extends React.Component {
         super(props);
 
         this.state = {
-            name: '',
+            firstName: '',
+            lastName: '',
             email: '',
             number: '',
             profile_id: '',
@@ -26,7 +27,8 @@ class CreateProfile extends React.Component {
             ref2Email: '',
         };
 
-        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleNumChange = this.handleNumChange.bind(this);
         this.handleRef1NameChange = this.handleRef1NameChange.bind(this);
@@ -37,8 +39,12 @@ class CreateProfile extends React.Component {
 
     }
 
-    handleNameChange(event) {
-        this.setState({name: event.target.value});
+    handleFirstNameChange(event) {
+        this.setState({firstName: event.target.value});
+    }
+
+    handleLastNameChange(event) {
+        this.setState({lastName: event.target.value});
     }
 
     handleEmailChange(event) {
@@ -80,7 +86,8 @@ class CreateProfile extends React.Component {
                 "Content-Type": "application/json"
                 },
               body: JSON.stringify( { 
-                name:this.state.name, 
+                firstName:this.state.firstName, 
+                lastName:this.state.lastName,
                 email:this.state.email, 
                 number:this.state.number, 
                 referenc1Name:this.state.ref1Name,
@@ -109,9 +116,15 @@ class CreateProfile extends React.Component {
                 <Label for="name" sm={2}>Complete Profile</Label>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="name" sm={2}>Name</Label>
+                    <Label for="name" sm={2}>First Name</Label>
                     <Col sm={10}>
-                    <Input type="text" name="name" id="name" placeholder="John Doe" onChange={this.handleNameChange} value={this.state.name}/>
+                    <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/>
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                    <Label for="name" sm={2}>Last Name</Label>
+                    <Col sm={10}>
+                    <Input type="text" name="name" id="lastname" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
