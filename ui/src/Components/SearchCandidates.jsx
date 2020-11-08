@@ -11,8 +11,6 @@ export default class SearchCandidates extends React.Component {
 			search: null,
 			props: props,
 		};
-
-		// this.applySearch = this.applySearch.bind(this);
 	}
 
 	async componentDidMount()
@@ -25,21 +23,33 @@ export default class SearchCandidates extends React.Component {
 	}
 
 	render(){
-		// const items = []
+		if (this.state.search) {
+			const obj = this.state.search.result;
+			var objLen = Object.keys(obj).length;
+			//console.log(obj);
+			//console.log(objLen);
 
+			var items = [];
+			for (var i = 0; i < objLen; i++) {
+				items.push(<tr>
+								<th scope="row">{i}</th>
+								<td>{this.state.search.result[i].first_name} {this.state.search.result[i].last_name}</td>
+								<td>{this.state.search.result[i].email}</td>
+								<td>{this.state.search.result[i].contact_num}</td>
+							</tr>)
+			}
+		}
 		return(
 				<>
 					{this.state.loading === (
 						<div> Loading Results... </div>
 						)} 
 					{!this.state.search ? (
-						<div> No results from DB </div>
+						<div> No results retrieved from DB </div>
 					)  :  (
 					<>
 					<Form>
-						<FormGroup row>
-						<Label for="name" sm={2}>Search Candidates</Label>
-						</FormGroup>
+						<h3> Search Candidates </h3>
 						<FormGroup row>
 							<Label for="text-search" sm={2}>Name</Label>
 							<Col sm={10}>
@@ -59,57 +69,27 @@ export default class SearchCandidates extends React.Component {
 							</Col>
 						</FormGroup>
 						<FormGroup row>
-							<Label for="checkDocs" sm={2}>All Docs Provided</Label>
-							<Col sm={10}>
-							<Input type="documentsCheck" name="checkDocs" id="checkDocs" />
-							</Col>
-						</FormGroup>
-						<FormGroup row>
-							<Label for="certComplete" sm={2}>Completed Certificates (select all)</Label>
-							<Col sm={10}>
-								<Input type="select" name="selectCerts" id="certComplete" multiple>
-								<option>AUTOPOPULATE FROM TABLE LATER</option>
-								<option>Sweeping</option>
-								<option>Mopping</option>
-								<option>Windows</option>
-								</Input>
-							</Col>
-						</FormGroup>
-
-						<FormGroup check row>
-							<Col sm={{ size: 10, offset: 6 }}>
-							<Button color="primary onClick={this.applySearch}">Search</Button> 
-							// https://reactjs.org/docs/faq-functions.html
+							<Col sm={{ size: 10, offset: 2 }}>
+							<Button color="primary onClick={this.applySearch}">Search</Button>
 							</Col>
 						</FormGroup>
 
 					</Form>
 
 					<div className="searchResults">
-						<h3>Found # Results</h3>
-						<p>(#_OF_RESULTS)</p>
+						<h3>Results</h3>
+						<p>(Found {objLen} RESULTS)</p>
 						<Table>
-						// https://flaviocopes.com/react-how-to-loop/
-						// https://stackoverflow.com/questions/22876978/loop-inside-react-jsx
 							<thead>
 								<tr>
-								  <th>#</th>
+								  <th> </th>
 								  <th>Name</th>
 								  <th>Email</th>
 								  <th>Phone Number</th>
-								  <th>All Docs Provided</th>
-								  <th>Completed Certificates</th>
 								</tr>
 							  </thead>
 							  <tbody>
-								<tr>
-								  <th scope="row">1</th>
-								  <td>{this.state.search.result[0].first_name}</td>
-								  <td>Otto</td>
-								  <td>@mdo</td>
-								  <td>@mdo</td>
-								  <td>@mdo</td>
-								</tr>
+								{items}
 							  </tbody>
 							</Table>
 						</div>
