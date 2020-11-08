@@ -5,7 +5,7 @@ const pool = new Pool({
 	user: 'master',
 	host: 'aoc-db-dev.cjynw6x3q1ly.us-west-1.rds.amazonaws.com',
 	database: 'aocdb',
-	password: 'msci3402020',
+	password: 'msci3422020',
 	port: 5432,
 	// idleTimeoutMillis: 30000,
 	// connectionTimeoutMillis: 2000,
