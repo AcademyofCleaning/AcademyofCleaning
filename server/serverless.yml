@@ -40,6 +40,15 @@ functions:
           path: /insertFormData
           method: post
 
+  searchCandidates:
+    handler: searchPage.applySearch
+    events:
+      - http:
+          path: /search
+          method: GET
+          # cors: true
+          # integration: LAMBDA
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
