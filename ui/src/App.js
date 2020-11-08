@@ -5,9 +5,9 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-
-import HomePage from './Components/HomePage';
 import CreateProfile from "./Components/CreateProfile";
+import HomePage from './Components/HomePage';
+import ProfilePage from "./Components/ProfilePage";
 import SearchCandidates from './Components/SearchCandidates';
 
 // rendering app
@@ -19,15 +19,15 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route exact path="/createProfile">
+        <Route exact path="/profiles/create">
           <CreateProfile />
         </Route>
+        <Route exact path="/profiles/:id" component={ProfilePage}/>
         <Route exact path="/search">
-          <SearchCandidates />
+            <SearchCandidates />
         </Route>
       </Switch>
-       
-       </div>
+      </div>
     </Router>
   );
 }
