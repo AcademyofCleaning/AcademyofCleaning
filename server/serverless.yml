@@ -38,6 +38,8 @@ functions:
       - http:
           path: /search
           method: GET
+          # cors: true
+          # integration: LAMBDA
 
 #    Define function environment variables here
 #    environment:

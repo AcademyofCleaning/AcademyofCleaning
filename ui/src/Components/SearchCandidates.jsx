@@ -19,11 +19,8 @@ export default class SearchCandidates extends React.Component {
 	{
 		const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/search`;
 		const resp = await fetch(url);
+		console.log(resp)
 		const data = await resp.json();
-		//const data = {"result":{
-		//	"first_name": "Christina",
-		//	}}
-		//console.log(resp)
 		this.setState({search: data, loading:false})
 	}
 
@@ -35,7 +32,7 @@ export default class SearchCandidates extends React.Component {
 					{this.state.loading === (
 						<div> Loading Results... </div>
 						)} 
-					{this.state.search ? (
+					{!this.state.search ? (
 						<div> No results from DB </div>
 					)  :  (
 					<>
@@ -107,7 +104,7 @@ export default class SearchCandidates extends React.Component {
 							  <tbody>
 								<tr>
 								  <th scope="row">1</th>
-								  <td>{this.state.search.result.first_name}</td>
+								  <td>{this.state.search.result[0].first_name}</td>
 								  <td>Otto</td>
 								  <td>@mdo</td>
 								  <td>@mdo</td>

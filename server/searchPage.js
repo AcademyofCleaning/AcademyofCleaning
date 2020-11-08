@@ -7,19 +7,11 @@ const pool = new Pool({
 	database: 'aocdb',
 	password: 'msci3422020',
 	port: 5432,
-	// idleTimeoutMillis: 30000,
-	// connectionTimeoutMillis: 2000,
 })
 
 
 module.exports.applySearch = async event => {
-
-	const selectAllCleaners = "SELECT * FROM cleaner_profile AS a\
-	LEFT JOIN completed_cert AS b ON a.profile_id = b.profile_id\
-	LEFT JOIN certification AS c ON b.cert_id = c.cert_id\
-	LEFT JOIN uploaded_attach AS d ON a.profile_id = d.profile_id\
-	LEFT JOIN attachment AS e ON e.attach_id = d.attach_id\
-	WHERE cleaner_profile.profile_id = '1'";
+		const selectAllCleaners = "SELECT * FROM cleaner_profile AS a LEFT JOIN completed_cert AS b ON a.profile_id = b.profile_id LEFT JOIN certification AS c ON b.cert_id = c.cert_id LEFT JOIN uploaded_attach AS d ON a.profile_id = d.profile_id LEFT JOIN attachment AS e ON e.attach_id = d.attach_id LEFT JOIN has_profile AS f ON f.profile_id = a.profile_id LEFT JOIN \"user\" AS g ON f.user_id = g.user_id;"
 
 	const result = await pool.query(selectAllCleaners)
 
@@ -36,6 +28,8 @@ module.exports.applySearch = async event => {
 					"Access-Control-Allow-Headers" : "Content-Type",
 					"Access-Control-Allow-Methods": "GET",
 					"Access-Control-Allow-Origin": "http://localhost:3000",
+					// "Access-Control-Allow-Origin": *,
+
 			},
 			body: JSON.stringify(
 			{
