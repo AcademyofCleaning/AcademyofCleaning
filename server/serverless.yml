@@ -37,7 +37,7 @@ functions:
     events:
       - http:
           path: /insertFormData
-          method: put
+          method: post
 
 #    Define function environment variables here
 #    environment:
