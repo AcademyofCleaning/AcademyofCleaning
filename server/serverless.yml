@@ -27,6 +27,13 @@ functions:
           path: /home
           method: any
 
+  searchCandidates:
+    handler: searchPage.applySearch
+    events:
+      - http:
+          path: /search
+          method: GET
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2

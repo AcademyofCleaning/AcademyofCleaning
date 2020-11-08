@@ -5,9 +5,10 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import CreateProfile from "./Components/CreateProfile";
-import HomePage from './Components/HomePage';
 
+import HomePage from './Components/HomePage';
+import CreateProfile from "./Components/CreateProfile";
+import SearchCandidates from './Components/SearchCandidates';
 
 // rendering app
 function App() {
@@ -21,11 +22,15 @@ function App() {
         <Route exact path="/createProfile">
           <CreateProfile />
         </Route>
+        <Route exact path="/search">
+          <SearchCandidates />
+        </Route>
       </Switch>
-        
-      </div>
+       
+       </div>
     </Router>
   );
 }
+
 
 export default App;

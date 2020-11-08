@@ -12,6 +12,24 @@ pre-requiste: node.js is already installed on your machine
 
 ## Active endpoints
 * ANY - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/home
+3.amazonaws.com/dev/searchCandidates
+    * [REQUIRED] URL Param id 
+
+```        
+    RESPONSE    
+        {
+            "result": {
+            	{
+<!--                 "profile_id": ProfileID,
+                "first_name": FirstName,
+                "last_name": LastName,
+                "contact_num": PhoneNum,
+                "contact_ext": PhoneExt, -->
+                
+                }
+            }
+        }
+```
 
 ## Deploying the Application
 * If you wish to deploy, push to the branch 'deploy-to-heroku' and our pipeline will run
