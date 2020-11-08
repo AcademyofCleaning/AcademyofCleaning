@@ -73,7 +73,7 @@ class CreateProfile extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const resp = fetch( 'http://localhost:3001/dev/insertFormData',
+        const resp = fetch( 'https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData',
             {
               method: "POST",
               headers: {
