@@ -25,6 +25,7 @@ functions:
       - http:
           path: /home
           method: any
+          
   viewProfile:
     handler: profile.getProfile
     events:

@@ -16,7 +16,7 @@ class CreateProfile extends React.Component {
         super(props);
 
         this.state = {
-            name: 'f',
+            name: '',
             email: '',
             number: '',
             ref1Name: '',
@@ -69,10 +69,15 @@ class CreateProfile extends React.Component {
         event.preventDefault();
         // window.location.href = "/viewProfile";
         // console.log(this.state.name);
-        fetch( 'http://localhost:3000/dev/insertFormData',
+        console.log(this.state);
+        fetch( 'http://localhost:3001/dev/insertFormData',
             {
               //should this be post?
               method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+                },
               body: JSON.stringify( { 
                 name:this.state.name, 
                 email:this.state.email, 
@@ -82,14 +87,13 @@ class CreateProfile extends React.Component {
                 referenc2Name:this.state.ref2Name,
                 reference2Email:this.state.ref2Email
                 } ),
-                headers: {
-                    // "Accept": "application/json",
-                     "Content-Type": "application/json"
-                   }
+
             } )
             .then(res => res.json())
                 .catch(error => console.error('Error:', error))
                 .then(response => console.log('Success:', response));
+
+            // route to /profiles/:id (id ==cleanerId) 
     };
     
     render() {
