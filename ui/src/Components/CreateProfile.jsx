@@ -19,6 +19,7 @@ class CreateProfile extends React.Component {
             name: '',
             email: '',
             number: '',
+            profile_id: '',
             ref1Name: '',
             ref1Email: '',
             ref2Name: '',
@@ -67,10 +68,10 @@ class CreateProfile extends React.Component {
     handleSubmit(event) {
         console.log("submitting data to db..");
         event.preventDefault();
-        // window.location.href = "/viewProfile";
         // console.log(this.state.name);
         console.log(this.state);
-        fetch( 'http://localhost:3001/dev/insertFormData',
+        //create variable for fetch like const resp
+        const resp = fetch( 'http://localhost:3001/dev/insertFormData',
             {
               //should this be post?
               method: "POST",
@@ -87,12 +88,17 @@ class CreateProfile extends React.Component {
                 referenc2Name:this.state.ref2Name,
                 reference2Email:this.state.ref2Email
                 } ),
-
             } )
             .then(res => res.json())
                 .catch(error => console.error('Error:', error))
-                .then(response => console.log('Success:', response));
+                .then(response => window.location.href = ('/dev/viewProfile?id=',response.result))
+                //.then(window.location.href = ('/dev/viewProfile?id=',response.result));
 
+        // const profile_id = resp.json();
+            //console.log(profile_id);
+
+
+            //console.log(result)
             // route to /profiles/:id (id ==cleanerId) 
     };
     
