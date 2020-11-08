@@ -72,14 +72,9 @@ class CreateProfile extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log("submitting data to db..");
         event.preventDefault();
-        // console.log(this.state.name);
-        console.log(this.state);
-        //create variable for fetch like const resp
         const resp = fetch( 'http://localhost:3001/dev/insertFormData',
             {
-              //should this be post?
               method: "POST",
               headers: {
                 "Accept": "application/json",
@@ -99,14 +94,6 @@ class CreateProfile extends React.Component {
             .then(res => res.json())
                 .catch(error => console.error('Error:', error))
                 .then(response => window.location.href = ('/dev/viewProfile?id=',response.result))
-                //.then(window.location.href = ('/dev/viewProfile?id=',response.result));
-
-        // const profile_id = resp.json();
-            //console.log(profile_id);
-
-
-            //console.log(result)
-            // route to /profiles/:id (id ==cleanerId) 
     };
     
     render() {
