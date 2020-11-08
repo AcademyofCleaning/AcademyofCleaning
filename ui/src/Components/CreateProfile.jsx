@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Col, Form, FormGroup, Label, Input, Row } from 'reactstrap';
@@ -11,17 +10,13 @@ const H3 = styled.h3`
   margin-bottom: 40px;
   margin-left: 50px;
 `;
-=======
-import React, {Component} from 'react';
-import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
->>>>>>> (wip) Storing Form Data
 
 class CreateProfile extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: '',
+            name: 'f',
             email: '',
             number: '',
             ref1Name: '',
@@ -37,6 +32,7 @@ class CreateProfile extends React.Component {
         this.handleRef1EmailChange = this.handleRef1EmailChange.bind(this);
         this.handleRef2NameChange = this.handleRef2NameChange.bind(this);
         this.handleRef1EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
@@ -68,11 +64,12 @@ class CreateProfile extends React.Component {
         this.setState({ref2Email: event.target.value});
     }
 
-    onFormSubmit(event) {
+    handleSubmit(event) {
+        console.log("submitting data to db..");
         event.preventDefault();
-        window.location.href = "/viewProfile";
-        console.log(this.state.name);
-        fetch( 'https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/createProfile',
+        // window.location.href = "/viewProfile";
+        // console.log(this.state.name);
+        fetch( 'http://localhost:3000/dev/insertFormData',
             {
               //should this be post?
               method: "POST",
@@ -97,7 +94,7 @@ class CreateProfile extends React.Component {
     
     render() {
         return (
-            <Form onSubmit={ this.onFormSubmit }>
+            <Form onSubmit={ this.handleSubmit }>
                 <FormGroup row>
                 <Label for="name" sm={2}>Complete Profile</Label>
                 </FormGroup>

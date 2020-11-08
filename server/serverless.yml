@@ -33,7 +33,7 @@ functions:
           method: GET
 
   insertFormData:
-    handler: handler.insertFormData
+    handler: profileFormSubmission.profileInsertion
     events:
       - http:
           path: /insertFormData
