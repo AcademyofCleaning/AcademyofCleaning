@@ -34,7 +34,7 @@ functions:
           method: GET
 
   insertFormData:
-    handler: profileFormSubmission.profileInsertion
+    handler: profileFormSubmission.saveProfile
     events:
       - http:
           path: /insertFormData
