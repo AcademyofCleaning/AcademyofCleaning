@@ -25,12 +25,20 @@ functions:
       - http:
           path: /home
           method: any
+          
   viewProfile:
     handler: profile.getProfile
     events:
       - http:
           path: /viewProfile
           method: GET
+
+  insertFormData:
+    handler: profileFormSubmission.saveProfile
+    events:
+      - http:
+          path: /insertFormData
+          method: post
 
 #    Define function environment variables here
 #    environment:

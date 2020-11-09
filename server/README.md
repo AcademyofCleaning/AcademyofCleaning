@@ -27,6 +27,7 @@ pre-requiste: node.js is already installed on your machine
                 }
         }
 ```
+* POST - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData 
 
 ## Deploying the Application
 * If you wish to deploy, push to the branch 'deploy-to-heroku' and our pipeline will run
