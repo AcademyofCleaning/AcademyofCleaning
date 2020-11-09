@@ -88,14 +88,17 @@ pre-requiste: node.js is already installed on your machine
 ```
 
 ## Deploying the Application
-* If you wish to deploy, push to the branch 'deploy-to-heroku' and our pipeline will run
+If you wish to deploy, there are two potential avenues:
+1. Push to the branch 'deploy-to-heroku' and our pipeline will run
+2. Using the heroku UI, deploy the branch you want to test out
 * A demo can be accessed here: https://serene-ocean-22768.herokuapp.com/
+* Please announce that you're deploying to make sure you don't overwrite someone else's changes
 
 ## Testing the Application Locally
 To test the application locally:
 * `npm install serverless-offline`
 * `serverless offline`
-After you run the command, a list of viable endpoints will appear. Then just use the request mechanism of your choice (i.e Postman, `curl` etc.) to hit your endpoint.
+After you run the command, a list of viable endpoints will appear. Then just use the request mechanism of your choice (i.e Postman, `curl` etc.) to hit your desired endpoint. 
 
 ## File Upload
 To store our files, we're leveraging two buckets - one for confidential and one for non-confidential documents. These have been setup using bucket policies in AWS. The mechanism to upload documents works like this:

@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
 
-const pool = new Pool({ 
+const pool = new Pool({
     user: process.env.user,
     host: process.env.host,
     database: process.env.database,
@@ -12,10 +12,11 @@ const pool = new Pool({
 });
 
 s3.config.update({
-    accessKeyId: process.env.accessKeyId,  
+    accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey,
     region: process.env.region,
 });
+
 
 //TODO: change the actual PRIVATE_BUCKET name, for whatever reason AWS wasn't working properly and I couldn't change it
 const LICENSE_BUCKET = "cleaner-licenses";
@@ -29,8 +30,7 @@ const s3Params = (bucket_name, documentType, profileId) => {
         Bucket: bucket_name,
         ContentType: 'application/pdf',
         Key: `${documentType}/${profileId}.pdf`,
-    }
-}
+    }o
 
 module.exports.saveProfile = async (event, callback )=> {
     const body = JSON.parse(event.body);
@@ -52,13 +52,13 @@ module.exports.saveProfile = async (event, callback )=> {
       headers:{
         "Access-Control-Allow-Headers" : "Content-Type",
         "Access-Control-Allow-Methods" : "POST",
-        "Access-Control-Allow-Origin" : "http://localhost:3001" 
+        "Access-Control-Allow-Origin" : "*"
       },
       body: JSON.stringify(
         {
           result: profileId,
           govIdUrl: s3Urls[0],
-          toolPicUrl: s3Urls[1]  
+          toolPicUrl: s3Urls[1]
         },
         null,
         2
