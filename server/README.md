@@ -5,28 +5,60 @@ pre-requiste: node.js is already installed on your machine
 * The serverless.yml file is what you edit to manipulate endpoints and API Gateway
 * The node.js files in the server folder is what is used as the "server" code
 * You will need to set up an access key from AWS in order to deploy server code
-    * speak to a administrator to obtain credentials to sign into AWS Console
-    * Sign In to AWS Console, navigate to `Academy of Cleaning` in the top nav > `My Security Credentials` and click `Create New Access Key`
-    * follow instructions [here](https://www.serverless.com/framework/docs/providers/aws/guide/credentials#setup-with-serverless-config-credentials-command) to set up credentials
+	* speak to a administrator to obtain credentials to sign into AWS Console
+	* Sign In to AWS Console, navigate to `Academy of Cleaning` in the top nav > `My Security Credentials` and click `Create New Access Key`
+	* follow instructions [here](https://www.serverless.com/framework/docs/providers/aws/guide/credentials#setup-with-serverless-config-credentials-command) to set up credentials
 * `cd` into the server dir and run `serverless deploy` to deploy code to the server to AWS
 
 ## Active endpoints
 * ANY - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/home
 * GET - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile
 
-    * [REQUIRED] URL Param id 
+	* [REQUIRED] URL Param id 
 
 ```        
-    RESPONSE    
-        {
-            "result": {
-                "profile_id": id,
-                "first_name": Name,
-                "last_name": LastName,
-                "contact_num": Number,
-                "contact_ext": ext
-                }
-        }
+	RESPONSE    
+		{
+			"result": {
+				"profile_id": id,
+				"first_name": FirstName,
+				"last_name": LastName,
+				"contact_num": Number,
+				"contact_ext": ext
+				}
+		}
+```
+* GET - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/search
+
+```        
+	RESPONSE    
+		{
+		  "result": [
+			{
+			  "profile_id": id,
+			  "first_name": FirstName,
+			  "last_name": "LastName,
+			  "contact_num": Number,
+			  "contact_ext": ext,
+			  "cert_name": CertName,
+			  "attach_name": AttachName,
+			  "user_type": UserType,
+			  "is_verified": Verified,
+			  "email": Email
+			},
+			{
+			  "profile_id": id,
+			  "first_name": FirstName,
+			  "last_name": "LastName,
+			  "contact_num": Number,
+			  "contact_ext": ext,
+			  "cert_name": CertName,
+			  "attach_name": AttachName,
+			  "user_type": UserType,
+			  "is_verified": Verified,
+			  "email": Email
+			}
+		]}
 ```
 * POST - https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData 
 
