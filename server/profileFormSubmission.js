@@ -46,12 +46,13 @@ module.exports.saveProfile = async (event, callback )=> {
     s3Urls[0] = govId == true ? s3.getSignedUrl('putObject', s3Params(LICENSE_BUCKET, "licenses", profileId)) : '';
     s3Urls[1] = toolPic == true ? s3.getSignedUrl('putObject', s3Params(TOOLS_BUCKET, "tool pics", profileId)): '';
 
+    console.log(profileId);
     return {
       statusCode: 200,
       headers:{
         "Access-Control-Allow-Headers" : "Content-Type",
         "Access-Control-Allow-Methods" : "POST",
-        "Access-Control-Allow-Origin" : "http://localhost:3000" 
+        "Access-Control-Allow-Origin" : "http://localhost:3001" 
       },
       body: JSON.stringify(
         {
