@@ -3,8 +3,8 @@ import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
-const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
-// const URL = "http://localhost:3000/dev/insertFormData";
+// const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
+const URL = "http://localhost:3000/dev/insertFormData";
 
 class CreateProfile extends React.Component {
     constructor(props) {
