@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Col, Form, FormGroup, Label, Row, Table } from 'reactstrap';
+import { Form, Table } from 'reactstrap';
 import NavBar from './NavBar';
 
 /* Illustration of how to use a styled component 

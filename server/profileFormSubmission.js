@@ -1,5 +1,8 @@
 const { Pool } = require('pg');
-const { allowedNodeEnvironmentFlags } = require('process');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+
 const pool = new Pool({ 
     user: process.env.user,
     host: process.env.host,
@@ -8,14 +11,40 @@ const pool = new Pool({
     port: process.env.port,
 });
 
+s3.config.update({
+    accessKeyId: process.env.accessKeyId,  
+    secretAccessKey: process.env.secretAccessKey,
+    region: process.env.region,
+});
 
-module.exports.profileInsertion = async (event, callback )=> {
+//TODO: change the actual PRIVATE_BUCKET name, for whatever reason AWS wasn't working properly and I couldn't change it
+const LICENSE_BUCKET = "cleaner-licenses";
+const TOOLS_BUCKET = "semi-private";
+
+let s3Urls = ['',''];
+
+const s3Params = (bucket_name, documentType, profileId) => {
+    return {
+        ACL: 'public-read',
+        Bucket: bucket_name,
+        ContentType: 'application/pdf',
+        Key: `${documentType}/${profileId}.pdf`,
+    }
+}
+
+module.exports.saveProfile = async (event, callback )=> {
     const body = JSON.parse(event.body);
     const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num) VALUES($1, $2, $3) RETURNING *'
     const values = [body.firstName, body.lastName, body.number]
 
     const result = await pool.query(text, values);
     pool.end();
+
+    let profileId = result.rows[0].profile_id;
+    let govId = body.govId;
+    let toolPic = body.toolPic;
+    s3Urls[0] = govId == true ? s3.getSignedUrl('putObject', s3Params(LICENSE_BUCKET, "licenses", profileId)) : '';
+    s3Urls[1] = toolPic == true ? s3.getSignedUrl('putObject', s3Params(TOOLS_BUCKET, "tool pics", profileId)): '';
 
     return {
       statusCode: 200,
@@ -26,7 +55,9 @@ module.exports.profileInsertion = async (event, callback )=> {
       },
       body: JSON.stringify(
         {
-          result: result.rows[0].profile_id
+          result: profileId,
+          govIdUrl: s3Urls[0],
+          toolPicUrl: s3Urls[1]  
         },
         null,
         2
