@@ -1,0 +1,13 @@
+input {
+  position: relative;
+  margin-bottom: 30px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  width: 130px;
+  border: 3px solid aquamarine;
+  padding: 8px;
+}
+/* When input field gets focus, change width*/
+input:focus {
+  width: 70%;
+}

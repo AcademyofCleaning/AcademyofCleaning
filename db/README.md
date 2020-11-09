@@ -66,7 +66,7 @@ Files attached can range from resume, coverletter, letter of recommendation, pol
 | ----------  | --------- | -------|
 | `row_id` | serial | Primary Key, auto-incremented unique row id |
 | `user_id` | bigint | Foreign Key, user.user_id |
-| `cert_id` | bigint | Foreign Key, certification.cert_id |
+| `profile_id` | bigint | Foreign Key, cleaner_profile.profile_id |
 
 ### has_ref
 | Column      | Data Type | Detail |

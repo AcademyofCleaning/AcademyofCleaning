@@ -8,6 +8,7 @@ import {
 import CreateProfile from "./Components/CreateProfile";
 import HomePage from './Components/HomePage';
 import ProfilePage from "./Components/ProfilePage";
+import SearchCandidates from './Components/SearchCandidates';
 
 // rendering app
 function App() {
@@ -22,10 +23,14 @@ function App() {
           <CreateProfile />
         </Route>
         <Route exact path="/profiles/:id" component={ProfilePage}/>
+        <Route exact path="/search">
+            <SearchCandidates />
+        </Route>
       </Switch>
       </div>
     </Router>
   );
 }
+
 
 export default App;
