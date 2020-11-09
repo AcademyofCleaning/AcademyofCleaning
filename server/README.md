@@ -96,3 +96,11 @@ To test the application locally:
 * `npm install serverless-offline`
 * `serverless offline`
 After you run the command, a list of viable endpoints will appear. Then just use the request mechanism of your choice (i.e Postman, `curl` etc.) to hit your endpoint.
+
+## File Upload
+To store our files, we're leveraging two buckets - one for confidential and one for non-confidential documents. These have been setup using bucket policies in AWS. The mechanism to upload documents works like this:
+1. If there is a document that needs to be uploaded, we request a pre-signed URL from S3 using the AWS SDK. This pre-signed URL is only valid for five minutes to limit the exposure of the bucket. It can be used unlimited times.
+2. The backend sends the url back to the react app and the react app subsequently sends a put request using the pre-signed URL to put the document in the appropriate S3 bucket.
+3. The naming convention it will follow is `S://{accessLevel}/{documentType}/{profileId}`
+	* `accessLevel` corresponds to the confidential vs non-confidential bucket
+	* right now, we only have `licenses` and `tool_pics` as our `documentType`, but this is easily extensible

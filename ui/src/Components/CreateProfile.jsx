@@ -1,15 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Button, Col, Form, FormGroup, Label, Input, Row } from 'reactstrap';
+import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import NavBar from './NavBar';
 
-const H3 = styled.h3`
-  display: flex;
-  justify-content: align-left;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  margin-left: 50px;
-`;
+//Uncomment/Comment based on env
+const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
+// const URL = "http://localhost:3000/dev/insertFormData";
 
 class CreateProfile extends React.Component {
     constructor(props) {
@@ -25,6 +20,10 @@ class CreateProfile extends React.Component {
             ref1Email: '',
             ref2Name: '',
             ref2Email: '',
+            govIdFlag: false,
+            govId: null,
+            toolPicFlag: false,
+            toolPic: null,
         };
 
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -35,6 +34,8 @@ class CreateProfile extends React.Component {
         this.handleRef1EmailChange = this.handleRef1EmailChange.bind(this);
         this.handleRef2NameChange = this.handleRef2NameChange.bind(this);
         this.handleRef1EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleLicenseUpload = this.handleLicenseUpload.bind(this);
+        this.handleToolUpload = this.handleToolUpload.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -71,10 +72,23 @@ class CreateProfile extends React.Component {
         this.setState({ref2Email: event.target.value});
     }
 
+    handleLicenseUpload(event) {
+        this.setState({
+            govIdFlag: true,
+            govId: event.target.files[0]
+        });
+    }
+    
+    handleToolUpload(event) {
+        this.setState({
+            toolPicFlag: true,
+            toolPic: event.target.files[0]
+        });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
-        const resp = fetch('http://localhost:3001/dev/insertFormData',
-            'https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData',
+        fetch(URL,
             {
               method: "POST",
               headers: {
@@ -86,19 +100,49 @@ class CreateProfile extends React.Component {
                 lastName:this.state.lastName,
                 email:this.state.email, 
                 number:this.state.number, 
-                referenc1Name:this.state.ref1Name,
+                reference1Name:this.state.ref1Name,
                 reference1Email:this.state.ref1Email,
-                referenc2Name:this.state.ref2Name,
-                reference2Email:this.state.ref2Email
-                } ),
-            } )
+                reference2Name:this.state.ref2Name,
+                reference2Email:this.state.ref2Email,
+                govId:this.state.govIdFlag,
+                toolPic:this.state.toolPicFlag
+                }),
+            })
             .then(res => res.json())
-                .catch(error => console.error('Error:', error))
-                .then(response => window.location.href = ('/dev/viewProfile?id=',response.result))
+            .then(res => {
+                console.log(res)
+                if (res.govIdUrl!=='') {
+                    fetch(res.govIdUrl, {
+                        method: "PUT",
+                        body: this.state.govId,
+                        headers: {
+                            "Content-Type": "application/pdf",
+                            "x-amx-acl" : "public-read",
+                        },
+                    })
+                    .then((res) => {
+                        console.log(res);
+                    });
+                }
+                if (res.toolPicUrl!=='') {
+                    fetch(res.toolPicUrl, {
+                        method: "PUT",
+                        body: this.state.toolPic,
+                        headers: {
+                            "Content-Type": "application/pdf",
+                            "x-amx-acl" : "public-read",
+                        },
+                    })
+                }
+                window.location.href = ('/dev/viewProfile?id=', res.result) 
+            })
+            .catch(error => console.error('Error:', error));
     };
     
     render() {
         return (
+            <>
+            <NavBar/>
             <Form onSubmit={ this.handleSubmit }>
                 <FormGroup row>
                 <Label for="name" sm={2}>Complete Profile</Label>
@@ -130,7 +174,7 @@ class CreateProfile extends React.Component {
                 <FormGroup row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
-                    <Input type="file" name="govId" id="govId" />
+                    <Input type="file" name="govId" id="govId" onChange={this.handleLicenseUpload}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -158,7 +202,7 @@ class CreateProfile extends React.Component {
                 <FormGroup row>
                     <Label for="tools" sm={2}>Tools/Supplies</Label>
                     <Col sm={10}>
-                    <Input type="file" name="tools" id="tools" />
+                    <Input type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
                     </Col>
                 </FormGroup>
                 <FormGroup check row>
@@ -167,10 +211,9 @@ class CreateProfile extends React.Component {
                     </Col>
                 </FormGroup>
             </Form>
+            </>
         );
     }
 }
 
-
 export default CreateProfile;
-
