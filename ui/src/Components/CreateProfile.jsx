@@ -3,8 +3,8 @@ import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
-// const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
-const URL = "http://localhost:3000/dev/insertFormData";
+const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
+//const URL = "http://localhost:3000/dev/insertFormData";
 
 class CreateProfile extends React.Component {
     constructor(props) {
@@ -110,7 +110,7 @@ class CreateProfile extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                res = JSON.parse(res.body)
                 if (res.govIdUrl!=='') {
                     fetch(res.govIdUrl, {
                         method: "PUT",
@@ -134,7 +134,7 @@ class CreateProfile extends React.Component {
                         },
                     })
                 }
-                window.location.href = ('/dev/viewProfile?id=', res.result) 
+            window.location.href = ('/dev/viewProfile?id=', res.result) 
             })
             .catch(error => console.error('Error:', error));
     };

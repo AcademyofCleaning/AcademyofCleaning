@@ -25,8 +25,7 @@ module.exports.applySearch = async event => {
 			headers:{
 					"Access-Control-Allow-Headers" : "Content-Type",
 					"Access-Control-Allow-Methods": "GET",
-					"Access-Control-Allow-Origin": "http://localhost:3001",
-
+					"Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify(
 			{
