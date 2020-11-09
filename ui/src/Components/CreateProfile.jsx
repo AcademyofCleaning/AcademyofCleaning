@@ -73,8 +73,7 @@ class CreateProfile extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const resp = fetch('http://localhost:3001/dev/insertFormData',
-            'https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData',
+        const resp = fetch('https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData',
             {
               method: "POST",
               headers: {
@@ -86,9 +85,9 @@ class CreateProfile extends React.Component {
                 lastName:this.state.lastName,
                 email:this.state.email, 
                 number:this.state.number, 
-                referenc1Name:this.state.ref1Name,
+                reference1Name:this.state.ref1Name,
                 reference1Email:this.state.ref1Email,
-                referenc2Name:this.state.ref2Name,
+                reference2Name:this.state.ref2Name,
                 reference2Email:this.state.ref2Email
                 } ),
             } )
