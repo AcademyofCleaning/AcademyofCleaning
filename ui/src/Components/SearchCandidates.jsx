@@ -1,7 +1,6 @@
 import React from 'react';
-import { Table, Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Table, Button, Col, Form, FormGroup, Label } from 'reactstrap';
 import { SearchBox } from './search-box/search-box.component';
-import NavBar from './NavBar';
 
 export default class SearchCandidates extends React.Component {
 	constructor(props){
@@ -105,7 +104,6 @@ export default class SearchCandidates extends React.Component {
 						<div> Retrieving results from DB... </div>
 					)  :  (
 					<Form>
-					<NavBar />
 					<FormGroup row>
 					<Col sm={4}>
 						<h5> Search Cleaners </h5>

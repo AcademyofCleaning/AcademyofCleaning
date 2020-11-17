@@ -1,16 +1,19 @@
 import React from 'react';
 import './App.css';
 import {
-  BrowserRouter as Router,
-  ProtectedRoute,
   Route,
   Switch,
 } from "react-router-dom";
-// import { CreateProfile, HomePage, ProfilePage, SearchCandidates } from './Components';
-import { NavBar } from './Components/auth/NavBar';
+import HomePage from './Components/HomePage';
+import ProfilePage from './Components/ProfilePage';
+import SearchCandidates from './Components/SearchCandidates';
+import NavBar from './Components/NavBar';
 import { Loading } from './Components/auth/Loading';
-import { useAuth0 } from '@auth0/auth0-react';
 import Profile from './views/profile';
+import ProtectedRoute from './auth/ProtectedRoute';
+
+/* Auth0 dependency */
+import { useAuth0 } from '@auth0/auth0-react';
 
 // rendering app
 function App() {
@@ -21,35 +24,21 @@ function App() {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100">
-      <NavBar />
-      <div className="container flex-grow-1">
+    <div className="App">
+      {/* <NavBar /> */}
+      <div>
+        <NavBar />
         <Switch>
-          {/* <Route path="/" exact component={Home} /> */}
-          {/* <ProtectedRoute path="/profile" component={Profile} /> */}
-          {/* <ProtectedRoute path="/external-api" component={ExternalApi} /> */}
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <ProtectedRoute exact path="/profiles/:id" component={ProfilePage} />
+          <ProtectedRoute exact path="/search" component={SearchCandidates} />
+          <ProtectedRoute path="/auth0-profile" component={Profile} />
         </Switch>
       </div>
-      {/* <Footer /> */}
     </div>
-    // <Router>
-    //   <div className="App">
-    //   <Switch>
-    //     <Route exact path="/">
-    //       <HomePage />
-    //     </Route>
-    //     <Route exact path="/profiles/create">
-    //       <CreateProfile />
-    //     </Route>
-    //     <Route exact path="/profiles/:id" component={ProfilePage}/>
-    //     <Route exact path="/search">
-    //       <SearchCandidates />
-    //     </Route>
-    //   </Switch>
-    //   </div>
-    // </Router>
   );
 }
-
 
 export default App;
