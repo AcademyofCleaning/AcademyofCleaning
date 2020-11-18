@@ -24,7 +24,13 @@ functions:
     events:
       - http:
           path: /home
-          method: any
+          method: ANY  
+    hello:
+      handler: profileFormUpdate.editProfile
+      events:
+        - http:
+            path: /editProfile
+            method: POST
           
   viewProfile:
     handler: profile.getProfile
@@ -38,7 +44,7 @@ functions:
     events:
       - http:
           path: /insertFormData
-          method: post
+          method: POST
 
   searchCandidates:
     handler: searchPage.applySearch
@@ -46,8 +52,6 @@ functions:
       - http:
           path: /search
           method: GET
-          # cors: true
-          # integration: LAMBDA
 
 #    Define function environment variables here
 #    environment:

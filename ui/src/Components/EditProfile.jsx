@@ -3,8 +3,7 @@ import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
-const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
-// const URL = "http://localhost:3000/dev/insertFormData";
+const URL = "";
 
 class CreateProfile extends React.Component {
     constructor(props) {
@@ -43,14 +42,19 @@ class CreateProfile extends React.Component {
 
     }
 
-    // functions to handle new information 
+    // function to get new information 
     async componentDidMount()
     {
       const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=${this.state.props.match.params.id}`;
       const resp = await fetch(url);
       const data = await resp.json();
-      console.log();
+      console.log(data);
       this.setState({profile: data, loading: false});
+
+      // assign all required form variable from now
+      this.state.firstName = this.state.profile.result.first_name;
+      this.state.lastName = this.state.profile.result.last_name;
+      this.state.number = this.state.profile.result.contact_num;
     }
 
     // functions to handle method update
@@ -59,7 +63,7 @@ class CreateProfile extends React.Component {
     }
 
     handleLastNameChange(event) {
-        this.setState({lastName: event.target.value});
+            this.setState({lastName: event.target.value});
     }
 
     handleEmailChange(event) {
@@ -100,12 +104,29 @@ class CreateProfile extends React.Component {
         });
     }
 
+    // check required form variables to make sure they are the original or new values
+    checkIfBlank(){
+        if(this.state.firstName == ""){
+            this.state.firstName = this.state.profile.result.first_name;
+        }  
+        if(this.state.lastName  == ""){
+            this.state.lastName = this.state.profile.result.last_name;
+        }    
+        if(this.state.number  == ""){
+            this.state.number = this.state.profile.result.contact_num;         
+        }     
+        if(this.state.number  == ""){
+            this.state.email = this.state.profile.result.email; 
+        }  
+    };
+
     /** NEW API to be set - PUT request that updates the Entry!*/
     handleSubmit(event) {
+        this.checkIfBlank();
         event.preventDefault();
         fetch(URL,
             {
-              method: "POST",
+              method: "PUT",
               headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -127,7 +148,7 @@ class CreateProfile extends React.Component {
             .then(res => res.json())
             .then(res => {
                 res = JSON.parse(res.body)
-                if (res.govIdUrl!=='') {
+                if (res.govIdUrl!=='') { //upload gov id
                     fetch(res.govIdUrl, {
                         method: "PUT",
                         body: this.state.govId,
@@ -140,7 +161,7 @@ class CreateProfile extends React.Component {
                         console.log(res);
                     });
                 }
-                if (res.toolPicUrl!=='') {
+                if (res.toolPicUrl!=='') { //upload tool file
                     fetch(res.toolPicUrl, {
                         method: "PUT",
                         body: this.state.toolPic,
@@ -150,7 +171,7 @@ class CreateProfile extends React.Component {
                         },
                     })
                 }
-            window.location.href = ('/dev/viewProfile?id=', res.result) 
+            window.location.href = ('/dev/viewProfile?id=', res.result) //redirect to Profile View Page
             })
             .catch(error => console.error('Error:', error));
     };
@@ -181,11 +202,10 @@ class CreateProfile extends React.Component {
                     <Input type="text" name="name" id="lastname" placeholder={this.state.profile.result.last_name} onChange={this.handleLastNameChange} value={this.state.lastName}/>
                     </Col>
                 </FormGroup>
-                {/** To be updated with placeholders of received from the GET request */}
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
                     <Col sm={10}>
-                    <Input type="email" name="email" id="email" placeholder="johndoe@gmail.com" onChange={this.handleEmailChange} value={this.state.email}/>
+                    <Input type="email" name="email" id="email" placeholder={this.state.profile.result.email}  onChange={this.handleEmailChange} value={this.state.email}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -194,12 +214,14 @@ class CreateProfile extends React.Component {
                     <Input type="tel" name="phone" id="phone" placeholder={this.state.profile.result.contact_num} onChange={this.handleNumChange} value={this.state.number}/>
                     </Col>
                 </FormGroup>
+                {/** Display ID URL */}
                 <FormGroup row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
                     <Input type="file" name="govId" id="govId" onChange={this.handleLicenseUpload}/>
                     </Col>
                 </FormGroup>
+                {/** NOT CURRENTLY RETURNED IN GET CALL - FUTURE SPRINT WORK */}
                 <FormGroup row>
                     <Label sm={2}>Reference 1:</Label>
                     <Label for="referenceName" sm={1}>Name</Label>
@@ -222,6 +244,7 @@ class CreateProfile extends React.Component {
                     <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
                     </Col>
                 </FormGroup>
+                {/** Display Tools URL */}
                 <FormGroup row>
                     <Label for="tools" sm={2}>Tools/Supplies</Label>
                     <Col sm={10}>
