@@ -13,12 +13,10 @@ const HomePage = () => {
                 </Container>
             </Jumbotron>
             <div className = "authNav">
-                {/* <Link to="/profiles/create">  <Button color="primary onClick{() => }">Sign-Up</Button> </Link>
-                <Button color="secondary">Login</Button> */}
                 <AuthNav />
             </div>
         </React.Fragment>
     );
 }
 
-export default HomePage ; 
+export default HomePage; 

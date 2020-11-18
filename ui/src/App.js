@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
-import {
-  Route,
-  Switch,
-} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import CreateProfile from './Components/CreateProfile';
 import HomePage from './Components/HomePage';
 import ProfilePage from './Components/ProfilePage';
 import SearchCandidates from './Components/SearchCandidates';
@@ -29,9 +27,8 @@ function App() {
       <div>
         <NavBar />
         <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
+          <Route exact path="/" component={HomePage} />
+          <ProtectedRoute path="/profiles/create" component={CreateProfile} />
           <ProtectedRoute exact path="/profiles/:id" component={ProfilePage} />
           <ProtectedRoute exact path="/search" component={SearchCandidates} />
           <ProtectedRoute path="/auth0-profile" component={Profile} />
