@@ -9,6 +9,7 @@ import CreateProfile from "./Components/CreateProfile";
 import HomePage from './Components/HomePage';
 import ProfilePage from "./Components/ProfilePage";
 import SearchCandidates from './Components/SearchCandidates';
+import EditProfile from './Components/EditProfile';
 
 // rendering app
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <CreateProfile />
         </Route>
         <Route exact path="/profiles/:id" component={ProfilePage}/>
+        <Route exact path="/profiles/edit/:id" component={EditProfile}/>
         <Route exact path="/search">
           <SearchCandidates />
         </Route>
