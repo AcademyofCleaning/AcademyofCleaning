@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form, Table } from 'reactstrap';
-import NavBar from './NavBar';
 
 /* Illustration of how to use a styled component 
   1. create a styled component with the given syntax
@@ -36,7 +35,6 @@ export default class ProfilePage extends React.Component {
   render(){
     return(
       <div>
-        <NavBar />
         <Form>
           {this.state.loading === (
             <div>Loading...</div>
