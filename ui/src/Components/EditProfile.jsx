@@ -3,7 +3,7 @@ import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
-const URL = "";
+const URL = "http://localhost:3001/dev/editProfile";
 
 class CreateProfile extends React.Component {
     constructor(props) {
@@ -147,7 +147,6 @@ class CreateProfile extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-                res = JSON.parse(res.body)
                 if (res.govIdUrl!=='') { //upload gov id
                     fetch(res.govIdUrl, {
                         method: "PUT",
@@ -171,7 +170,7 @@ class CreateProfile extends React.Component {
                         },
                     })
                 }
-            window.location.href = ('/dev/viewProfile?id=', res.result) //redirect to Profile View Page
+            window.location.href = ('/profiles/' + res.result) //redirect to Profile View Page
             })
             .catch(error => console.error('Error:', error));
     };

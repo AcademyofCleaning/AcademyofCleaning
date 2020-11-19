@@ -25,12 +25,13 @@ functions:
       - http:
           path: /home
           method: ANY  
-    hello:
-      handler: profileFormUpdate.editProfile
-      events:
-        - http:
-            path: /editProfile
-            method: POST
+
+  editProfile:
+    handler: profileFormUpdate.editProfile
+    events:
+      - http:
+          path: /editProfile
+          method: PUT
           
   viewProfile:
     handler: profile.getProfile
