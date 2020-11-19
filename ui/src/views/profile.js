@@ -7,8 +7,6 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 const Profile = () => {
   const { user } = useAuth0();
   const { name, picture, email } = user;
-  console.log("user email = " + user['email']);
-  console.log("user ID = " + user['sub'].split("|")[1]);
 
   return (
     <div>

@@ -15,8 +15,6 @@ const Auth0ProviderWithHistory = ({ children }) => {
     );
   };
 
-  console.log(domain);
-
   return (
     <Auth0Provider
       domain={domain}
