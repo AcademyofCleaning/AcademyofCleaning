@@ -7,7 +7,7 @@ CREATE TABLE public.reference
     ref_id integer NOT NULL DEFAULT nextval('reference_ref_id_seq'::regclass),
     first_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     last_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
     contact_num character varying(50) COLLATE pg_catalog."default" NOT NULL,
     contact_ext character varying(10) COLLATE pg_catalog."default",
     relationship character varying(255) COLLATE pg_catalog."default" NOT NULL,
