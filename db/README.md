@@ -29,18 +29,18 @@ Detailed setup documentation that was followed can be found [here](https://docs.
 | `first_name` | varchar(255) | First name of cleaner | Not Null |
 | `middle_name` | varchar(255) | Middle name of cleaner, optional | - |
 | `last_name` | varchar(255) | Last name of cleaner | Not Null |
-| `contact_num` | varchar(50) | Contact number of cleaner e.g. '4161234567' | Not Null |
+| `contact_num` | varchar(50) | Contact number of cleaner e.g. '4161234567' | - |
 | `contact_ext` | varchar(10) | Phone number extension, optional | - |
 | `app_status` | enum | Status of Application | Default: 'Began Application' |
 | `email` | varchar(100) | Email of user | Not Null |
-| `address` | varchar(255) | Addres of Residence | Not Null |
-| `city` | varchar(255) | City of Residence | Not Null |
-| `postal_code` | char(6) | Postal Code of Residence | Not Null |
+| `address` | varchar(255) | Addres of Residence | - |
+| `city` | varchar(255) | City of Residence | - |
+| `postal_code` | char(6) | Postal Code of Residence | - |
 | `gov_id` | bool | Photo of Government Issued ID uploaded? | Default: 0 |
 | `sin` | char(9) | Canadian SIN number, optional | - |
 | `health_ins` | bool | Photo of Government Issued ID uploaded? | Default: 0 |
-| `dob` | char(10) | Date of Birth, stored as 'MM/DD/YYYY' | Not Null |
-| `current_occup` | varchar(100) | Current Occupation | Not Null |
+| `dob` | char(10) | Date of Birth, stored as 'MM/DD/YYYY' | - |
+| `current_occup` | varchar(100) | Current Occupation | - |
 
 
 ### reference
