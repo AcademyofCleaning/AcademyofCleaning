@@ -40,9 +40,10 @@ export default class SearchCandidates extends React.Component {
 	onNumberSearch = (event) => {
 		this.setState({ searchNumber: event.target.value });
 		};
-
-	populate = (a, obj, i)=> {
-		a.push(<tr>
+	
+	// this method populates the table of items with the parameters passed through the state
+	populate = (items, obj, i)=> {
+		items.push(<tr>
 			<th scope="row">{i+1}</th>
 			<td ><a href={"/profiles/"+obj[i].profile_id}>{obj[i].first_name} {obj[i].last_name}</a></td>
 			<td>{obj[i].email}</td>
@@ -53,7 +54,6 @@ export default class SearchCandidates extends React.Component {
 	render(){
 		if (this.state.search) {
 			const obj = this.state.search.result
-			console.log(obj[0])
 			var objLen = Object.keys(obj).length;
 			var items = [];
 
