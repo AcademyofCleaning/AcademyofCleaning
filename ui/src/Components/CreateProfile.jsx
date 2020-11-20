@@ -1,6 +1,6 @@
 import React from 'react';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
-import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
 const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
@@ -142,39 +142,39 @@ class CreateProfile extends React.Component {
     render() {
         return (
             <>
-            <NavBar/>
-            <Form onSubmit={ this.handleSubmit }>
+            <AvForm onSubmit={ this.handleSubmit }>
                 <FormGroup row>
                 <Label for="name" sm={2}>Complete Profile</Label>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="name" sm={2}>First Name</Label>
                     <Col sm={10}>
-                    <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/>
+                    <AvField name="name" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
+                    {/* <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/> */}
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="name" sm={2}>Last Name</Label>
                     <Col sm={10}>
-                    <Input type="text" name="name" id="lastname" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName}/>
+                    <AvField name="name" type="text" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName} required />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
                     <Col sm={10}>
-                    <Input type="email" name="email" id="email" placeholder="johndoe@gmail.com" onChange={this.handleEmailChange} value={this.state.email}/>
+                    <AvField name="email" type="email" placeholder="johndoe@gmail.com" onChange={this.handleEmailChange} value={this.state.email} required />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="phone" sm={2}>Phone Number</Label>
                     <Col sm={10}>
-                    <Input type="tel" name="phone" id="phone" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number}/>
+                    <AvField name="phone" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
-                    <Input type="file" name="govId" id="govId" onChange={this.handleLicenseUpload}/>
+                    <AvField name="govId" type="file" onChange={this.handleLicenseUpload} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -202,15 +202,15 @@ class CreateProfile extends React.Component {
                 <FormGroup row>
                     <Label for="tools" sm={2}>Tools/Supplies</Label>
                     <Col sm={10}>
-                    <Input type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
+                    <AvField type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
                     </Col>
                 </FormGroup>
                 <FormGroup check row>
                     <Col sm={{ size: 10, offset: 6 }}>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" color="primary">Submit</Button>
                     </Col>
                 </FormGroup>
-            </Form>
+            </AvForm>
             </>
         );
     }
