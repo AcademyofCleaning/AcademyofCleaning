@@ -33,9 +33,9 @@ const s3Params = (bucket_name, documentType, profileId) => {
 }
 
 module.exports.saveProfile = async (event, callback )=> {
-    const body = event.body;
-    const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num) VALUES($1, $2, $3) RETURNING *'
-    const values = [body.firstName, body.lastName, body.number]
+  const body = JSON.parse(event.body);
+  const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num, email) VALUES($1, $2, $3, $4) RETURNING *'
+  const values = [body.firstName, body.lastName, body.number, body.email];
 
     const result = await pool.query(text, values);
 
