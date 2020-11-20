@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Button, Col, Form, FormGroup, Label } from 'reactstrap';
+import { Table, Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import NavBar from './NavBar';
 import { SearchBox } from './search-box/search-box.component';
 
 export default class SearchCandidates extends React.Component {
@@ -16,14 +17,6 @@ export default class SearchCandidates extends React.Component {
 		};
 	}
 
-
-	// async componentDidMount()
-	// {
-	// 	const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/search`;
-	// 	const resp = await fetch(url);
-	// 	const data = await resp.json();
-	// 	this.setState({search: data, loading:false})
-	// }
 	componentDidMount() {
 		fetch('https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/search')
 		.then(response => {
@@ -36,63 +29,82 @@ export default class SearchCandidates extends React.Component {
 		.catch((error) => {console.log(error)});
 	}
 
-	/** Event Handlers for search fields
-		// TODO: Uncomment so state is updated, triggering a rerender of results
 	onNameSearch = (event) => {
-		this.setState({ searchName: event.target.value });
+		this.setState({ searchName: event.target.value.toLowerCase() });
+		console.log(event.target.value)
 		};
 
 	onEmailSearch = (event) => {
-		this.setState({ searchEmail: event.target.value });
+		this.setState({ searchEmail: event.target.value.toLowerCase() });
 		};
 
 	onNumberSearch = (event) => {
 		this.setState({ searchNumber: event.target.value });
 		};
-
-	*/
+	
+	// this method populates the table of items with the parameters passed through the state
+	populate = (items, obj, i)=> {
+		items.push(<tr>
+			<th scope="row">{i+1}</th>
+			<td ><a href={"/profiles/"+obj[i].profile_id}>{obj[i].first_name} {obj[i].last_name}</a></td>
+			<td>{obj[i].email}</td>
+			<td>{obj[i].contact_num}</td>
+		</tr>)
+	}
 
 	render(){
-		console.log("RENDERING");
-		// Add results row by row
 		if (this.state.search) {
-			const obj = this.state.search.result; // instance of cleaner data queried earlier
+			const obj = this.state.search.result
 			var objLen = Object.keys(obj).length;
 			var items = [];
+
 
 			// Builds table with JSON object items passed in
 			for (var i = 0; i < objLen; i++) {
 				// !!! Link row to profile eventually
-				items.push(<tr>
-							<th scope="row">{i+1}</th>
-							<td ><a href={"/profiles/"+obj[i].profile_id}>{obj[i].first_name} {obj[i].last_name}</a></td>
-							<td>{obj[i].email}</td>
-							<td>{obj[i].contact_num}</td>
-						</tr>)
-			}
 
-
-
-			/** Filters json object with cleaner information, with filters specified in state
-				// TODO: Add logic to filter results when email & phone number values are typed in filters
-
-			var searchName = this.state.searchName;
-			var searchEmail = this.state.searchEmail;
-			var searchNumber = this.state.searchNumber;
-
-			function applyFilters() {
-				var finalResults = obj;
-				const fullName = String.prototype.toLowerCase.call(obj.first_name + ' ' + obj.last_name);
-				if (searchName != null) {
-					console.log(searchName);
-					finalResults = fullName.includes(String.prototype.toLowerCase.call(searchName));
+				//All of these if statements are necessary to make sure that the results returned are accurate. If we don't handle all of these cases, it will not populate dynamically
+				//These statements are also necessary to make sure that the filters work together, and not independently 
+				if (this.state.searchName != null && this.state.searchNumber != null && this.state.searchEmail != null) {
+					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+						this.populate(items)
+					}
 				}
-				return finalResults	
-
-			var filteredResults = obj.filter(applyFilters);
-			displayResults(filteredResults);
-			*/
-
+				else if (this.state.searchName != null && this.state.searchNumber != null) {
+					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchName != null && this.state.searchEmail != null) {
+					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchNumber != null && this.state.searchEmail != null) {
+					if (obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchNumber != null) {
+					if (obj[i].contact_num.includes(this.state.searchNumber)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchName != null) {
+					if (obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchEmail != null) {
+					if (obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+						this.populate(items, obj, i)
+					}
+				}
+				// if no search fields are entered, we still want to show the total list
+				else {
+						this.populate(items, obj, i)
+				}
+			}
   
 		}
 		return(
@@ -110,23 +122,20 @@ export default class SearchCandidates extends React.Component {
 						<FormGroup row>
 							<Label for="text-search" sm={2}>Name</Label>
 							<Col sm={10}>
-							<SearchBox onSearchChange={this.onNameSearch} />
+							<input type="text" className="input" onChange={this.onNameSearch} placeholder="John Doe"/>
 							</Col>
 						</FormGroup>
 						<FormGroup row>
 							<Label for="email" sm={2}>Email</Label>
 							<Col sm={10}>
-							<SearchBox onEmailSearch={this.onEmailSearch} />
+							<input type="text" className="input" onChange={this.onEmailSearch} placeholder="abc@gmail.com"/>
 							</Col>
 						</FormGroup>
 						<FormGroup row>
 							<Label for="phone" sm={2}>Phone Number</Label>
 							<Col sm={10}>
-							<SearchBox onNumberSearch={this.onNumberSearch} />
+							<input type="text" className="input" onChange={this.onNumberSearch} placeholder="6471231234"/>
 							</Col>
-						</FormGroup>
-						<FormGroup check row>
-							<Button>Search</Button>
 						</FormGroup>
 					</Col>
 					<Col lg>
