@@ -30,12 +30,12 @@ const s3Params = (bucket_name, documentType, profileId) => {
         ContentType: 'application/pdf',
         Key: `${documentType}/${profileId}.pdf`,
     }
-}
+ }
 
 module.exports.saveProfile = async (event, callback )=> {
   const body = JSON.parse(event.body);
-  const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num, email) VALUES($1, $2, $3, $4) RETURNING *'
-  const values = [body.firstName, body.lastName, body.number, body.email];
+  const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num, email, has_tools) VALUES($1, $2, $3, $4, $5) RETURNING *'
+  const values = [body.firstName, body.lastName, body.number, body.email, body.toolPic];
 
     const result = await pool.query(text, values);
 
