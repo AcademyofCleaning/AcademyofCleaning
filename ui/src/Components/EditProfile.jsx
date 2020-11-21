@@ -1,17 +1,17 @@
 import React from 'react';
 import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
-import NavBar from './NavBar';
 
 //Uncomment/Comment based on env
-// const URL = "http://localhost:3001/dev/editProfile";
-const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/editProfile";
+// const ApiUrl = "http://localhost:3001/dev/editProfile";
+const ApiUrl = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/editProfile";
+const GetApiUrl = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=`;
+
 
 class CreateProfile extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            loading: true,
             profile: null,
             props: props,
             firstName: '',
@@ -46,10 +46,9 @@ class CreateProfile extends React.Component {
     // function to get new information 
     async componentDidMount()
     {
-      const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=${this.state.props.match.params.id}`;
+      const url = GetApiUrl+this.state.props.match.params.id;
       const resp = await fetch(url);
       const data = await resp.json();
-      console.log(data);
       this.setState({profile: data, loading: false});
 
       // assign all required form variable from now
@@ -125,7 +124,7 @@ class CreateProfile extends React.Component {
     handleSubmit(event) {
         this.checkIfBlank();
         event.preventDefault();
-        fetch(URL,
+        fetch(ApiUrl,
             {
               method: "PUT",
               headers: {
@@ -157,9 +156,6 @@ class CreateProfile extends React.Component {
                             "x-amx-acl" : "public-read",
                         },
                     })
-                    .then((res) => {
-                        console.log(res);
-                    });
                 }
                 if (res.toolPicUrl!=='') { //upload tool file
                     fetch(res.toolPicUrl, {
@@ -184,10 +180,6 @@ class CreateProfile extends React.Component {
         }
         return (
             <>
-            <NavBar/>
-            {this.state.loading === (
-            <div>Loading...</div>
-            )}
             {!this.state.profile ? (
                 <div> Profile Does Not Exist </div>
             ) : (
