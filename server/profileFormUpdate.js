@@ -33,8 +33,8 @@ const s3Params = (bucket_name, documentType, profileId) => {
 
 module.exports.editProfile = async (event, callback )=> {
     const body = JSON.parse(event.body);
-    const text = 'UPDATE cleaner_profile SET(first_name, last_name, contact_num, email) = ($1, $2, $3, $4) WHERE profile_id = $5'
-    const values = [body.firstName, body.lastName, body.number, body.email, body.id]
+    const text = 'UPDATE cleaner_profile SET(first_name, last_name, contact_num, email, has_tools) = ($1, $2, $3, $4, $5) WHERE profile_id = $6'
+    const values = [body.firstName, body.lastName, body.number, body.email, body.toolPic, body.id]
 
     const result = await pool.query(text, values);
 
