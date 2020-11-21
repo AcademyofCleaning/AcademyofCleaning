@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <ProtectedRoute path="/profiles/create" component={CreateProfile} />
           <ProtectedRoute exact path="/profiles/:id" component={ProfilePage} />
-           <Route exact path="/profiles/edit/:id" component={EditProfile}/>
+          <ProtectedRoute exact path="/profiles/edit/:id" component={EditProfile}/>
           <ProtectedRoute exact path="/search" component={SearchCandidates} />
           <ProtectedRoute path="/auth0-profile" component={Profile} />
         </Switch>
