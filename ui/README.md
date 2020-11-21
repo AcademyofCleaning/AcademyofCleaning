@@ -3,6 +3,20 @@
 1. If modification is needed, see an illustration of how to use a styled component in `src/Components/ProfilePage.jsx`
 1. For page headings, use a styled H3 component. For profile pages, the heading can be center-aligned. For other pages, please follow the styled H3 component in `ProfilePage.jsx`
 
+## Setting up Authentication with Auth0 locally
+Create a .env file in `ui/` and populate with the following:
+
+```
+DEV_PORT=3000
+PROD_PORT=3001
+REACT_APP_AUTH0_DOMAIN=academyofcleaning.us.auth0.com
+REACT_APP_AUTH0_CLIENT_ID=
+BASE_URL=http://localhost:3000
+SESSION_SECRET=
+```
+
+Please privately message @MatthewFollegot to obtain the client ID and secret
+
 ## Scripts
 
 ### `npm start`
