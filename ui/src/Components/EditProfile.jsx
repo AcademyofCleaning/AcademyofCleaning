@@ -27,6 +27,7 @@ class CreateProfile extends React.Component {
             govId: null,
             toolPicFlag: false,
             toolPic: null,
+            toolPicUrl : "",
         };
 
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -162,6 +163,8 @@ class CreateProfile extends React.Component {
                     });
                 }
                 if (res.toolPicUrl!=='') { //upload tool file
+                    this.state.toolPicUrl = res.toolPicUrl;
+
                     fetch(res.toolPicUrl, {
                         method: "PUT",
                         body: this.state.toolPic,
@@ -177,6 +180,11 @@ class CreateProfile extends React.Component {
     };
     
     render() {
+        const checkToolFile = ()=>{
+            if(this.state.toolPicUrl!==''){
+                return <a href={this.state.toolPicUrl}> Tool Pic File Uploaded </a>
+            } 
+        }
         return (
             <>
             <NavBar/>
@@ -214,7 +222,6 @@ class CreateProfile extends React.Component {
                     <Input type="tel" name="phone" id="phone" placeholder={this.state.profile.result.contact_num} onChange={this.handleNumChange} value={this.state.number}/>
                     </Col>
                 </FormGroup>
-                {/** Display ID URL */}
                 <FormGroup row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
@@ -244,9 +251,9 @@ class CreateProfile extends React.Component {
                     <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
                     </Col>
                 </FormGroup>
-                {/** Display Tools URL */}
+                {checkToolFile()}
                 <FormGroup row>
-                    <Label for="tools" sm={2}>Tools/Supplies</Label>
+                    <Label for="tools" sm={2} >Tools/Supplies</Label>
                     <Col sm={10}>
                     <Input type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
                     </Col>
