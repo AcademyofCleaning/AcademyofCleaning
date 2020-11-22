@@ -2,8 +2,7 @@ const { Pool } = require('pg');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
-
-const pool = new Pool({
+const pool = new Pool({ 
     user: process.env.user,
     host: process.env.host,
     database: process.env.database,
@@ -12,7 +11,7 @@ const pool = new Pool({
 });
 
 s3.config.update({
-    accessKeyId: process.env.accessKeyId,
+    accessKeyId: process.env.accessKeyId,  
     secretAccessKey: process.env.secretAccessKey,
     region: process.env.region,
 });
@@ -30,16 +29,16 @@ const s3Params = (bucket_name, documentType, profileId) => {
         ContentType: 'application/pdf',
         Key: `${documentType}/${profileId}.pdf`,
     }
- }
+}
 
-module.exports.saveProfile = async (event, callback )=> {
-  const body = JSON.parse(event.body);
-  const text = 'INSERT INTO cleaner_profile(first_name, last_name, contact_num, email, has_tools) VALUES($1, $2, $3, $4, $5) RETURNING *'
-  const values = [body.firstName, body.lastName, body.number, body.email, body.toolPic];
+module.exports.editProfile = async (event, callback )=> {
+    const body = JSON.parse(event.body);
+    const text = 'UPDATE cleaner_profile SET(first_name, last_name, contact_num, email, has_tools) = ($1, $2, $3, $4, $5) WHERE profile_id = $6'
+    const values = [body.firstName, body.lastName, body.number, body.email, body.toolPic, body.id]
 
     const result = await pool.query(text, values);
 
-    let profileId = result.rows[0].profile_id;
+    let profileId = body.id;
     let govId = body.govId;
     let toolPic = body.toolPic;
     s3Urls[0] = govId == true ? s3.getSignedUrl('putObject', s3Params(LICENSE_BUCKET, "licenses", profileId)) : '';

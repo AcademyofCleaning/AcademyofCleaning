@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Form, Table } from 'reactstrap';
+import { Form, Table, Button } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 /* Illustration of how to use a styled component 
   1. create a styled component with the given syntax
@@ -10,7 +11,18 @@ import { Form, Table } from 'reactstrap';
 const H3 = styled.h3`
   margin-top: 40px;
   margin-bottom: 40px;
+  margin-left: 15px;
+  text-align: left;
 `;
+
+const H4 = styled.p`
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 15px;
+  text-align: left;
+`;
+
+const toolPicUrl = 'https://cleaner-tool-pics.s3-us-west-1.amazonaws.com/'
 
 export default class ProfilePage extends React.Component {
   constructor(props){
@@ -28,28 +40,30 @@ export default class ProfilePage extends React.Component {
     const url = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=${this.state.props.match.params.id}`;
     const resp = await fetch(url);
     const data = await resp.json();
-    console.log();
     this.setState({profile: data, loading: false});
   }
 
   render(){
+    if (this.state.loading == true) {
+      return(
+       <Loading/> 
+      );
+    } else {
     return(
       <div>
         <Form>
-          {this.state.loading === (
-            <div>Loading...</div>
-          )}
-          {!this.state.profile ? (
+          {!this.state.profile && this.state.loading == false ? (
             <div> Profile Does Not Exist </div>
           ) : (
             <div>
               <H3>{this.state.profile.result.first_name} {' '}
               {this.state.profile.result.last_name}</H3>
+              {this.state.profile.result.city ? <H4>Servicing the {this.state.profile.result.city} area</H4> : <div/>}
               <Table responsive>
                 <tbody>
                 <tr>
                     <td>Email</td>
-                    <td>placeholder@gmail.com</td>
+                    <td>{this.state.profile.result.email}</td>
                   </tr>
                   <tr>
                     <td>Phone Number</td>
@@ -59,13 +73,29 @@ export default class ProfilePage extends React.Component {
                     <td>Extension</td>
                     <td>{this.state.profile.result.contact_ext}</td>
                   </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>{this.state.profile.result.city}</td>
+                  </tr>
+                  {this.state.profile.result.has_tools ? (
+                    <tr>
+                    <td>Tool Pictures</td>
+                    <td><a target="_blank" href={toolPicUrl + this.state.profile.result.profile_id + '.pdf'}>Tool Picture Link</a></td>
+                  </tr>
+                  ) : <div/>}
+                  <tr>
+                    <td>Id Verified</td>
+                    {this.state.profile.result.gov_id ? <td>Verified</td> : <td>Not Verified</td> }
+                  </tr>
                 </tbody>
               </Table>
             </div>
           )}
         </Form>
+        <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-primary">Edit this profile</Link>
       </div>
     );
+    }
   }
 
 };

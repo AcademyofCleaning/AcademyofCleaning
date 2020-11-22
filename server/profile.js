@@ -6,7 +6,7 @@ const pool = new Pool({
   database: process.env.database,
   password: process.env.password,
   port: process.env.port,
-})
+});
 
 module.exports.getProfile = async (event) => {
 
