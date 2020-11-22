@@ -12,7 +12,7 @@ module.exports.getProfile = async (event) => {
 
   let profileId = Number(event.queryStringParameters.id);
 
-  const selectProfile = "SELECT * FROM Cleaner_profile WHERE profile_id = $1";
+  const selectProfile = "SELECT * FROM cleaner_profile WHERE profile_id = $1";
   const values = [profileId]
 
   const result = await pool.query(selectProfile, values);
