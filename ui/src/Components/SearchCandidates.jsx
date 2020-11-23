@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import NavBar from './NavBar';
 import { SearchBox } from './search-box/search-box.component';
+import './App.css';
 
 export default class SearchCandidates extends React.Component {
 	constructor(props){
@@ -113,12 +113,13 @@ export default class SearchCandidates extends React.Component {
 						<div> Loading Results... </div>
 						)} 
 					{!this.state.search ? (
-						<div> Retrieving results from DB... </div>
+						<div className="row-buffer"> Results cannot be retrieved. Please contact admin.</div>
 					)  :  (
 					<Form>
+					<div class="row-buffer side-buffer">
 					<FormGroup row>
 					<Col sm={4}>
-						<h5> Search Cleaners </h5>
+						<h4> Search Cleaners </h4>
 						<FormGroup row>
 							<Label for="text-search" sm={2}>Name</Label>
 							<Col sm={10}>
@@ -140,7 +141,7 @@ export default class SearchCandidates extends React.Component {
 					</Col>
 					<Col lg>
 						<div className="searchResults">
-						<h3>Results</h3>
+						<h4>Results</h4>
 						<p>(Found {objLen} Cleaners)</p>
 						<Table>
 							<thead>
@@ -158,6 +159,7 @@ export default class SearchCandidates extends React.Component {
 						</div>
 					</Col>
 					</FormGroup>
+					</div>
 					</Form>
 					)}
 				</>

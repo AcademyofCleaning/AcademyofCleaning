@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form, Table, Button } from 'reactstrap';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Loading } from './auth/Loading';
 
 /* Illustration of how to use a styled component 
   1. create a styled component with the given syntax
@@ -55,11 +56,11 @@ export default class ProfilePage extends React.Component {
           {!this.state.profile && this.state.loading == false ? (
             <div> Profile Does Not Exist </div>
           ) : (
-            <div>
-              <H3>{this.state.profile.result.first_name} {' '}
-              {this.state.profile.result.last_name}</H3>
+            <div className="row-buffer side-buffer left-align">
+              <h4>{this.state.profile.result.first_name} {' '}
+              {this.state.profile.result.last_name}</h4>
               {this.state.profile.result.city ? <H4>Servicing the {this.state.profile.result.city} area</H4> : <div/>}
-              <Table responsive>
+              <Table className="row-buffer" responsive>
                 <tbody>
                 <tr>
                     <td>Email</td>
@@ -89,10 +90,13 @@ export default class ProfilePage extends React.Component {
                   </tr>
                 </tbody>
               </Table>
+              <div className="right-align">
+                <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-secondary">Edit this profile</Link>
+              </div>
             </div>
           )}
         </Form>
-        <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-primary">Edit this profile</Link>
+        
       </div>
     );
     }

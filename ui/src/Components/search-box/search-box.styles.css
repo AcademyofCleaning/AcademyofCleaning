@@ -6,6 +6,9 @@ input {
   width: 130px;
   border: 3px solid aquamarine;
   padding: 8px;
+  border-color: #C4C4C4;
+  border-radius: 5px;
+  border-width: thin;
 }
 /* When input field gets focus, change width*/
 input:focus {

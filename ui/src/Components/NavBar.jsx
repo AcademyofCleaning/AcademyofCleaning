@@ -13,6 +13,8 @@ import {
   DropdownItem,
   NavbarText
 } from 'reactstrap';
+import './App.css';
+
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,24 +22,24 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
+    <div class="dontScroll">
+      <Navbar className="navbar-dark navbar-custom" light expand="md">
+        <h1>
         <NavbarBrand href="/">Academy of Cleaning</NavbarBrand>
+        </h1>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          <Nav className="ml-auto" navbar>
             <NavItem>
               <NavLink href="/search/">Search</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/getCertified/">Get Certified</NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/AcademyofCleaning/AcademyofCleaning">GitHub</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+            
+            <UncontrolledDropdown nav>
               <DropdownToggle nav caret>
-                More Info
+                Learn More
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
@@ -52,8 +54,7 @@ const NavBar = (props) => {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-          </Nav>
-          <NavbarText>
+
             <UncontrolledDropdown>
               <DropdownToggle nav caret>
                 My Account
@@ -71,7 +72,7 @@ const NavBar = (props) => {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-          </NavbarText>
+          </Nav>
         </Collapse>
       </Navbar>
     </div>

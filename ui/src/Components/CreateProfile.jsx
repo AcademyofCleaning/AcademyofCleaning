@@ -1,6 +1,7 @@
 import React from 'react';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Button, Col, Form, FormGroup, Label, Input} from 'reactstrap';
+import './App.css';
 
 //Uncomment/Comment based on env
 const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
@@ -143,41 +144,42 @@ class CreateProfile extends React.Component {
         return (
             <>
             <AvForm onSubmit={ this.handleSubmit }>
+                <div class="row-buffer side-buffer">
                 <FormGroup row>
-                <Label for="name" sm={2}>Complete Profile</Label>
+                <Label for="name" sm={2}><h4 className="left-align" >Complete Profile</h4></Label>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="name" sm={2}>First Name</Label>
                     <Col sm={10}>
                     <AvField name="name" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
                     {/* <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/> */}
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="name" sm={2}>Last Name</Label>
                     <Col sm={10}>
                     <AvField name="name" type="text" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName} required />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="email" sm={2}>Email</Label>
                     <Col sm={10}>
                     <AvField name="email" type="email" placeholder="johndoe@gmail.com" onChange={this.handleEmailChange} value={this.state.email} required />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="phone" sm={2}>Phone Number</Label>
                     <Col sm={10}>
                     <AvField name="phone" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
                     <AvField name="govId" type="file" onChange={this.handleLicenseUpload} />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label sm={2}>Reference 1:</Label>
                     <Label for="referenceName" sm={1}>Name</Label>
                     <Col sm={4}>
@@ -188,7 +190,7 @@ class CreateProfile extends React.Component {
                     <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label sm={2}>Reference 2:</Label>
                     <Label for="referenceName" sm={1}>Name</Label>
                     <Col sm={4}>
@@ -199,17 +201,16 @@ class CreateProfile extends React.Component {
                     <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
                     </Col>
                 </FormGroup>
-                <FormGroup row>
+                <FormGroup className="left-align" row>
                     <Label for="tools" sm={2}>Tools/Supplies</Label>
                     <Col sm={10}>
                     <AvField type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
                     </Col>
                 </FormGroup>
-                <FormGroup check row>
-                    <Col sm={{ size: 10, offset: 6 }}>
-                    <Button type="submit" color="primary">Submit</Button>
-                    </Col>
+                <FormGroup className="right-align" check row>
+                    <Button className="btn btn-secondary" type="submit">Submit</Button>
                 </FormGroup>
+            </div>
             </AvForm>
             </>
         );
