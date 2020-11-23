@@ -1,8 +1,8 @@
 import React from 'react';
-import { Jumbotron, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 import AuthNav from './auth/AuthNav';
 import './App.css';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { CardImg } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -59,7 +59,7 @@ const HomePage = () => {
             </Container>
             <div class="row-buffer">
             <p>Start the Journey Today</p>
-                <Link to= {`/createProfile`}className="btn btn-outline-success">Get Started</Link>
+                <Link to= {`/profiles/create`}className="btn btn-outline-success">Get Started</Link>
                 <button class="btn"> <AuthNav /></button>
             </div>
 
