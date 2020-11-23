@@ -22,7 +22,7 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div class="dontScroll">
+    <div>
       <Navbar className="navbar-dark navbar-custom" light expand="md">
         <h1>
         <NavbarBrand href="/">Academy of Cleaning</NavbarBrand>
