@@ -6,7 +6,7 @@ module.exports.landing = async event => {
     headers:{
         "Access-Control-Allow-Headers" : "Content-Type",
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-        "Access-Control-Allow-Origin": "http://localhost:3000"
+        "Access-Control-Allow-Origin": "*"
     },
     body: JSON.stringify(
       {

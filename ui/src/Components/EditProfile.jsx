@@ -177,7 +177,8 @@ class CreateProfile extends React.Component {
     render() {
         const checkToolFile = ()=>{
             if(this.state.toolPicUrl!==''){
-                return <a href={this.state.toolPicUrl}> Tool Pic File Uploaded </a>
+                // Currently displays "Took Pic File Uploaded" above the field, which seems incorrect. Until clarification, commenting out.
+                // return <a href={this.state.toolPicUrl}> Tool Pic File Uploaded </a>
             } 
         }
         if (this.state.loading) {
@@ -189,41 +190,42 @@ class CreateProfile extends React.Component {
                         <div> Profile Does Not Exist </div>
                     ) : (
                         <Form onSubmit={ this.handleSubmit }>
-                        <FormGroup row>
-                        <Label for="name" sm={2}>Complete Profile</Label>
+                        <div className="row-buffer side-buffer">
+                        <FormGroup className="left-align" row>
+                        <Label for="name" sm={2}><h4>Edit Profile</h4></Label>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="name" sm={2}>First Name</Label>
                             <Col sm={10}>
                             <Input type="text" name="name" id="firstname" placeholder={this.state.profile.result.first_name} onChange={this.handleFirstNameChange} value={this.state.firstName}/>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="name" sm={2}>Last Name</Label>
                             <Col sm={10}>
                             <Input type="text" name="name" id="lastname" placeholder={this.state.profile.result.last_name} onChange={this.handleLastNameChange} value={this.state.lastName}/>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="email" sm={2}>Email</Label>
                             <Col sm={10}>
                             <Input type="email" name="email" id="email" placeholder={this.state.profile.result.email}  onChange={this.handleEmailChange} value={this.state.email}/>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="phone" sm={2}>Phone Number</Label>
                             <Col sm={10}>
                             <Input type="tel" name="phone" id="phone" placeholder={this.state.profile.result.contact_num} onChange={this.handleNumChange} value={this.state.number}/>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="govId" sm={2}>Government Issued ID</Label>
                             <Col sm={10}>
                             <Input type="file" name="govId" id="govId" onChange={this.handleLicenseUpload}/>
                             </Col>
                         </FormGroup>
                         {/** NOT CURRENTLY RETURNED IN GET CALL - FUTURE SPRINT WORK */}
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label sm={2}>Reference 1:</Label>
                             <Label for="referenceName" sm={1}>Name</Label>
                             <Col sm={4}>
@@ -234,7 +236,7 @@ class CreateProfile extends React.Component {
                             <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label sm={2}>Reference 2:</Label>
                             <Label for="referenceName" sm={1}>Name</Label>
                             <Col sm={4}>
@@ -246,17 +248,16 @@ class CreateProfile extends React.Component {
                             </Col>
                         </FormGroup>
                         {checkToolFile()}
-                        <FormGroup row>
+                        <FormGroup className="left-align" row>
                             <Label for="tools" sm={2} >Tools/Supplies</Label>
                             <Col sm={10}>
                             <Input type="file" name="tools" id="tools" onChange={this.handleToolUpload} />
                             </Col>
                         </FormGroup>
-                        <FormGroup check row>
-                            <Col sm={{ size: 10, offset: 6 }}>
-                            <Button type="submit">Submit</Button>
-                            </Col>
+                        <FormGroup className="right-align" check row>
+                            <Button type="submit">Save</Button>
                         </FormGroup>
+                        </div>
                     </Form>
                     )}
                     </>

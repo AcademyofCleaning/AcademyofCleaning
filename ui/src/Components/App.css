@@ -1,6 +1,103 @@
-.authNav {
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  width: 55vw;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
+/* Modify the backgorund color */ 
+.navbar-custom { 
+    background-color: #8AC992; 
+    font-family: 'Poppins', sans-serif;
+    padding: 15px;
+} 
+
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+  position: relative;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Formats invisible overlay in home page */
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: white;
+}
+
+/* Formats invisible text overlaid on photos in home page */
+.text {
+  color: #235F42;
+  opacity: 0;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  transition: .5s ease;
+  
+}
+
+/* Changes text opacity when you hover over each image */
+.column:hover .text{
+  opacity: 1;
+}
+
+/* Changes overlay opacity when you hover over each image */
+.column:hover .overlay{
+  opacity: 0.75;
+}
+
+/* Customize h4 tag with brand font */
+h4 {
+  color: #235F42;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Customize p tag with brand font */
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: larger;
+}
+
+/* Creates large vertical space between homepage elements */
+.row-buffer {
+  margin-top:3rem; 
+}
+
+/* Creates smaller vertical space between homepage elements */
+.side-buffer {
+  margin-left: 5rem; 
+  margin-right: 5rem;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.condense-width: {
+  border-width: 50%;
+}
+
+.theme-font: {
+  font-family: 'Roboto', sans-serif;
 }
