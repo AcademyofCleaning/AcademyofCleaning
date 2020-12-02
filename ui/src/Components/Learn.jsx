@@ -1,8 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Form, Table, Button } from 'reactstrap';
+import { Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Loading } from './auth/Loading';
 
 export default class ProfilePage extends React.Component {
     constructor(props){
