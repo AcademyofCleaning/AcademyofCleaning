@@ -7,6 +7,7 @@ import ProfilePage from './Components/ProfilePage';
 import SearchCandidates from './Components/SearchCandidates';
 import EditProfile from './Components/EditProfile';
 import NavBar from './Components/NavBar';
+import Learn from './Components/Learn';
 import { Loading } from './Components/auth/Loading';
 import Profile from './views/profile';
 import ProtectedRoute from './auth/ProtectedRoute';
@@ -34,6 +35,7 @@ function App() {
           <ProtectedRoute exact path="/profiles/edit/:id" component={EditProfile}/>
           <ProtectedRoute exact path="/search" component={SearchCandidates} />
           <ProtectedRoute path="/auth0-profile" component={Profile} />
+          <ProtectedRoute path="/learn" component={Learn} ></ProtectedRoute>
         </Switch>
       </div>
     </div>
