@@ -16,8 +16,6 @@ module.exports.getProfile = async (event) => {
 
   let profileId = Number(event.queryStringParameters.id);
   let verifiedState = Number(event.queryStringParameters.verified);
-  console.log(verifiedState)
-
 
   /**
    * Update the application state based on the type of call
