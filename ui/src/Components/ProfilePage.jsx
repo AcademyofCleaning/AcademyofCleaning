@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Form, Table, Button, FormGroup } from 'reactstrap';
+import { Alert, Form, Table, Button, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './auth/Loading';
 import querySearch from "stringquery";
@@ -94,7 +94,7 @@ export default class ProfilePage extends React.Component {
         return (
           <Form>
             <div className="right-align" style={{marginRight: '100px'}}>
-            <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-secondary">Edit this profile</Link>
+            <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-secondary">Edit Profile</Link>
             </div>
           </Form>
 
@@ -112,39 +112,72 @@ export default class ProfilePage extends React.Component {
           {!this.state.profile && this.state.loading == false ? (
             <div> Profile Does Not Exist </div>
           ) : (
-            <div className="row-buffer side-buffer left-align">
-              <h4>{this.state.profile.result.first_name} {' '}
-              {this.state.profile.result.last_name}</h4>
-              {this.state.profile.result.city ? <H4>Servicing the {this.state.profile.result.city} area</H4> : <div/>}
-              <Table className="row-buffer" responsive>
+            <div className="row-buffer side-buffer">
+               {this.state.profile.result.app_status ? (
+                  <Alert className="width-fit" color="primary">
+                    Your application is in draft mode.
+                    Submit your application to employers through Edit Profile > Submit
+                  </Alert>                    
+                  ) : <div/>}
+                <Alert className="push-right" color="success">
+                  APPLICATION STATUS: {this.state.profile.result.app_status}
+                </Alert>
+                <h4 className="push-left">{this.state.profile.result.first_name} {' '}
+                {this.state.profile.result.middle_name} {' '}
+                {this.state.profile.result.last_name}</h4>
+              <div>
+              </div>
+              <Table responsive>
                 <tbody>
                 <tr>
-                    <td>Email</td>
+                    <th>Email</th>
                     <td>{this.state.profile.result.email}</td>
                   </tr>
                   <tr>
-                    <td>Phone Number</td>
-                    <td>{this.state.profile.result.contact_num}</td>
+                    <th>Phone Number</th>
+                    {this.state.profile.result.contact_ext ? (
+                    <td>{this.state.profile.result.contact_num}  x  {this.state.profile.result.contact_ext}</td>
+                  ) : <td>{this.state.profile.result.contact_num}</td>}
                   </tr>
                   <tr>
-                    <td>Extension</td>
-                    <td>{this.state.profile.result.contact_ext}</td>
+                    <th>Address</th>
+                    <td><div>{this.state.profile.result.address}</div>
+                    <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code}  {this.state.profile.result.province}</div>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Location</td>
-                    <td>{this.state.profile.result.city}</td>
+                    <th>Date of Birth (MM/DD/YYYY)</th>
+                    <td>{this.state.profile.result.dob.substring(0,2)}/{this.state.profile.result.dob.substring(2,4)}/{this.state.profile.result.dob.substring(4,8)}</td>
                   </tr>
+                  <tr>
+                    <th>Current Occupation</th>
+                    <td>{this.state.profile.result.current_occup}</td>
+                  </tr>
+                  <tr>
+                    <th>Social Insurance Number Provided?</th>
+                    {this.state.profile.result.sin ? (
+                    <td>Yes</td>
+                  ) : <td>No</td>}
+                  </tr>
+                  <tr>
+                    <th>Health Insurance Provided?</th>
+                    {this.state.profile.result.hin ? (
+                    <td>Yes</td>
+                  ) : <td>No</td>}
+                  </tr>
+                  <tr>
+                    <th>Government Issued ID Provided?</th>
+                    {this.state.profile.result.gov_id ? (
+                    <td>Yes</td>
+                  ) : <td>No</td>}
+                  </tr>
+
                   {this.state.profile.result.has_tools ? (
                     <tr>
-                    <td>Tool Pictures</td>
+                    <th>Tool Pictures</th>
                     <td><a target="_blank" href={toolPicUrl + this.state.profile.result.profile_id + '.pdf'}>Tool Picture Link</a></td>
                   </tr>
                   ) : <div/>}
-                  <tr>
-                    <td>Id Verified</td>
-                  {/* must be updated in the GET ticket to import the state directly from the DB */}
-                    <td>{this.state.profile.result.app_status}</td>
-                  </tr>
                 </tbody>
               </Table>
             </div>
