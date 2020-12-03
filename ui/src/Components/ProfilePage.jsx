@@ -92,9 +92,12 @@ export default class ProfilePage extends React.Component {
           ) 
       } else{ //edit profile CTA
         return (
-          <div className="right-align">
+          <Form>
+            <div className="right-align" style={{marginRight: '100px'}}>
             <Link to= {`/profiles/edit/${this.state.profile.result.profile_id}`}className="btn btn-secondary">Edit this profile</Link>
-          </div>
+            </div>
+          </Form>
+
         )
       }
   }
