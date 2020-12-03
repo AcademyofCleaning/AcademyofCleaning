@@ -113,7 +113,7 @@ export default class ProfilePage extends React.Component {
             <div> Profile Does Not Exist </div>
           ) : (
             <div className="row-buffer side-buffer">
-               {this.state.profile.result.app_status ? (
+               {this.state.profile.result.app_status == 'Began Application' ? (
                   <Alert className="width-fit" color="primary">
                     Your application is in draft mode.
                     Submit your application to employers through Edit Profile > Submit
@@ -141,17 +141,23 @@ export default class ProfilePage extends React.Component {
                   </tr>
                   <tr>
                     <th>Address</th>
-                    <td><div>{this.state.profile.result.address}</div>
-                    <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code}  {this.state.profile.result.province}</div>
-                    </td>
+                    {this.state.profile.result.address ? (
+                        <td><div>{this.state.profile.result.address}</div>
+                        <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code}  {this.state.profile.result.province}</div>
+                        </td>
+                      ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
                     <th>Date of Birth (MM/DD/YYYY)</th>
-                    <td>{this.state.profile.result.dob.substring(0,2)}/{this.state.profile.result.dob.substring(2,4)}/{this.state.profile.result.dob.substring(4,8)}</td>
+                    {this.state.profile.result.dob ? (
+                      <td>{this.state.profile.result.dob.substring(0,2)}/{this.state.profile.result.dob.substring(2,4)}/{this.state.profile.result.dob.substring(4,8)}</td>
+                      ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
                     <th>Current Occupation</th>
-                    <td>{this.state.profile.result.current_occup}</td>
+                    {this.state.profile.result.dob ? (
+                      <td>{this.state.profile.result.current_occup}</td>
+                      ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
                     <th>Social Insurance Number Provided?</th>
