@@ -274,8 +274,8 @@ class CreateProfile extends React.Component {
                             </Col>
                         </FormGroup>
                         <FormGroup className="right-align" check row>
-                            <Button type="submit" name="false" onClick={this.handleAppStatusUpdate}>{uploadCopy}</Button>
-                            <Button type="submit" name="true" onClick={this.handleAppStatusUpdate}>{readyForVerificationCopy}</Button>
+                            <Button type="submit" name="false" onClick={this.handleAppStatusUpdate } style={{margin: '5px'}}>{uploadCopy}</Button> 
+                            <Button type="submit" name="true" onClick={this.handleAppStatusUpdate} style={{backgroundColor: '#4CAF50'}}>{readyForVerificationCopy}</Button>
                         </FormGroup>
                         </div>
                     </Form>

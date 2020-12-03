@@ -41,7 +41,7 @@ export default class ProfilePage extends React.Component {
       verified:0,
     }
 
-    this.handleReadyParam = this.handleReadyParam.bind(this);
+    this.handlePendingVerParam = this.handlePendingVerParam.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -54,7 +54,7 @@ export default class ProfilePage extends React.Component {
     this.setState({profile: data, loading: false, admin: adminState});
   }
 
-  handleReadyParam(event){
+  handlePendingVerParam(event){
     if(event.target.name === "true"){
       this.setState({verified: 1});
     } else{
@@ -81,9 +81,10 @@ export default class ProfilePage extends React.Component {
             <div>
               <Form onSubmit={ this.handleSubmit }>
                 <div className="row-buffer side-buffer">
+                  <p className="right-align">Applicant Status:</p>
                   <FormGroup className="right-align" check row>
-                    <Button type="submit" name="false" onClick={this.handleReadyParam}>Pending Verification</Button>
-                    <Button type="submit" name="true" onClick={this.handleReadyParam}>Verified</Button>
+                    <Button type="submit" name="false" onClick={this.handlePendingVerParam} style={{margin: '5px'}}>More Information Required</Button>
+                    <Button type="submit" name="true" onClick={this.handlePendingVerParam} style={{backgroundColor: '#4CAF50'}}>Verify Candidate</Button>
                   </FormGroup>
                 </div>
               </Form>
