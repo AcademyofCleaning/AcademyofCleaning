@@ -160,8 +160,8 @@ export default class ProfilePage extends React.Component {
                       ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
-                    <th>Social Insurance Number Provided?</th>
-                    {this.state.profile.result.sin ? (
+                    <th>Canadian ID Provided?</th>
+                    {this.state.profile.result.canadian_id ? (
                     <td>Yes</td>
                   ) : <td>No</td>}
                   </tr>
