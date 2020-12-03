@@ -25,7 +25,7 @@ let s3Urls = ['',''];
 
 //Application Status Names:
 const IN_PROGRESS = 'Began Application';
-const READY_FOR_VEFIFICATION = 'Application Pending Employer Validation';
+const READY_FOR_VEFIFICATION = 'Pending Validation';
 
 /** Build out the s3 bucket URL */
 const s3Params = (bucket_name, documentType, profileId) => {

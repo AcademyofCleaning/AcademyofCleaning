@@ -9,8 +9,8 @@ const pool = new Pool({
 });
 
 // Application States
-const READY_FOR_VEFIFICATION = 'Application Pending Employer Validation';
-const VERIFIED = 'Application Completed Employer Validation';
+const READY_FOR_VEFIFICATION = 'More Info Required';
+const VERIFIED = 'Completed Validation';
 
 module.exports.getProfile = async (event) => {
 
