@@ -34,11 +34,10 @@ class CreateProfile extends React.Component {
         this.handleRef1NameChange = this.handleRef1NameChange.bind(this);
         this.handleRef1EmailChange = this.handleRef1EmailChange.bind(this);
         this.handleRef2NameChange = this.handleRef2NameChange.bind(this);
-        this.handleRef1EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleRef2EmailChange = this.handleRef2EmailChange.bind(this);
         this.handleLicenseUpload = this.handleLicenseUpload.bind(this);
         this.handleToolUpload = this.handleToolUpload.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleFirstNameChange(event) {
@@ -111,7 +110,8 @@ class CreateProfile extends React.Component {
             })
             .then(res => res.json())
             .then(res => {
-                res = JSON.parse(res.body)
+                // console.log(res);
+                // res = JSON.parse(res.body)
                 if (res.govIdUrl!=='') {
                     fetch(res.govIdUrl, {
                         method: "PUT",
@@ -146,19 +146,19 @@ class CreateProfile extends React.Component {
             <AvForm onSubmit={ this.handleSubmit }>
                 <div class="row-buffer side-buffer">
                 <FormGroup row>
-                <Label for="name" sm={2}><h4 className="left-align" >Complete Profile</h4></Label>
+                <Label sm={2}><h4 className="left-align" >Complete Profile</h4></Label>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="name" sm={2}>First Name</Label>
+                    <Label for="firstName" sm={2}>First Name</Label>
                     <Col sm={10}>
-                    <AvField name="name" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
+                    <AvField name="firstName" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
                     {/* <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/> */}
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="name" sm={2}>Last Name</Label>
+                    <Label for="lastName" sm={2}>Last Name</Label>
                     <Col sm={10}>
-                    <AvField name="name" type="text" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName} required />
+                    <AvField name="lastName" type="text" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName} required />
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
@@ -168,9 +168,9 @@ class CreateProfile extends React.Component {
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="phone" sm={2}>Phone Number</Label>
+                    <Label for="number" sm={2}>Phone Number</Label>
                     <Col sm={10}>
-                    <AvField name="phone" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
+                    <AvField name="number" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
@@ -183,22 +183,22 @@ class CreateProfile extends React.Component {
                     <Label sm={2}>Reference 1:</Label>
                     <Label for="referenceName" sm={1}>Name</Label>
                     <Col sm={4}>
-                    <Input type="text" name="referenceName" id="referenceName" onChange={this.handleRef1NameChange} value={this.state.ref1Name}/>
+                    <Input type="text" name="ref1Name" id="referenceName" onChange={this.handleRef1NameChange} value={this.state.ref1Name}/>
                     </Col>
                     <Label for="referenceEmail" sm={1}>Email</Label>
                     <Col sm={4}>
-                    <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
+                    <Input type="email" name="ref1Email" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
                     <Label sm={2}>Reference 2:</Label>
-                    <Label for="referenceName" sm={1}>Name</Label>
+                    <Label for="ref2Name" sm={1}>Name</Label>
                     <Col sm={4}>
-                    <Input type="text" name="referenceName" id="referenceName" onChange={this.handleRef2NameChange} value={this.state.ref2Name}/>
+                    <Input type="text" name="ref2Name" id="referenceName" onChange={this.handleRef2NameChange} value={this.state.ref2Name}/>
                     </Col>
-                    <Label for="referenceEmail" sm={1}>Email</Label>
+                    <Label for="ref2Email" sm={1}>Email</Label>
                     <Col sm={4}>
-                    <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
+                    <Input type="email" name="ref2Email" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>

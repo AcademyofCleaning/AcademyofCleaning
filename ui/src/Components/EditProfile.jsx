@@ -38,7 +38,7 @@ class CreateProfile extends React.Component {
         this.handleRef1NameChange = this.handleRef1NameChange.bind(this);
         this.handleRef1EmailChange = this.handleRef1EmailChange.bind(this);
         this.handleRef2NameChange = this.handleRef2NameChange.bind(this);
-        this.handleRef1EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleRef2EmailChange = this.handleRef2EmailChange.bind(this);
         this.handleLicenseUpload = this.handleLicenseUpload.bind(this);
         this.handleToolUpload = this.handleToolUpload.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
