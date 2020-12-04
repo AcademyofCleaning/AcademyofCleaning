@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Table, Button, Col, Form, FormGroup, Label, Switch} from 'reactstrap';
 import { SearchBox } from './search-box/search-box.component';
 import './App.css';
 
@@ -13,7 +13,8 @@ export default class SearchCandidates extends React.Component {
 			props: props,
 			searchName: null,
 			searchEmail: null,
-			searchNumber: null,
+			searchCity: null,
+			searchProvince: null,
 		};
 	}
 
@@ -38,10 +39,14 @@ export default class SearchCandidates extends React.Component {
 		this.setState({ searchEmail: event.target.value.toLowerCase() });
 		};
 
-	onNumberSearch = (event) => {
-		this.setState({ searchNumber: event.target.value });
+	onProvinceSearch = (event) => {
+		this.setState({ searchProvince: event.target.value });
 		};
 	
+	onCitySearch = (event) => {
+		this.setState({ searchCity: event.target.value });
+		};
+		
 	// this method populates the table of items with the parameters passed through the state
 	populate = (items, obj, i)=> {
 		items.push(<tr>
@@ -57,55 +62,120 @@ export default class SearchCandidates extends React.Component {
 			const obj = this.state.search.result
 			var objLen = Object.keys(obj).length;
 			var items = [];
-
+			var indices = [];
+			var indLen = indices.length
+			
 
 			// Builds table with JSON object items passed in
 			for (var i = 0; i < objLen; i++) {
-				// !!! Link row to profile eventually
 
-				//All of these if statements are necessary to make sure that the results returned are accurate. If we don't handle all of these cases, it will not populate dynamically
-				//These statements are also necessary to make sure that the filters work together, and not independently 
-				if (this.state.searchName != null && this.state.searchNumber != null && this.state.searchEmail != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
-						this.populate(items)
+				if (this.state.searchName != null) {
+					if (indLen == 0) {
+						if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName)) {
+							if (!indices.includes(i)){
+								indices.push(i);
+							}
+							console.log(obj[i])
+						}
+					}
+					if (indLen == objLen) {
+						indLen = 0
+					}
+					else {
+						for (var j = 0; j < indices.length; j++){
+							if (!obj[indices[j]].first_name.concat(' ', obj[indices[j]].last_name).toLowerCase().includes(this.state.searchName)) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+						}
 					}
 				}
-				else if (this.state.searchName != null && this.state.searchNumber != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber)) {
-						this.populate(items, obj, i)
+				
+				if (this.state.searchEmail != null) {
+					if (indLen == 0) {
+						if (obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+							if (!indices.includes(i)){
+								indices.push(i);
+							}
+						}
+					}
+					if (indLen == objLen) {
+						indLen = 0
+					}
+					else {
+						for (var j = 0; j < indices.length; j++){
+							if (!obj[indices[j]].email.toLowerCase().includes(this.state.searchEmail)) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+						}
 					}
 				}
-				else if (this.state.searchName != null && this.state.searchEmail != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
-						this.populate(items, obj, i)
+
+				if (this.state.searchProvince != null) {
+					if (indLen == 0 && obj[i].province != null) {
+						if (obj[i].province.toLowerCase().includes(this.state.searchProvince)) {
+							if (!indices.includes(i)){
+								indices.push(i);
+							}
+						}
+					}
+					if (indLen == objLen) {
+						indLen = 0
+					}
+					else {
+						for (var j = 0; j < indices.length; j++){
+							if (obj[indices[j]].province == null) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+							else if (!obj[indices[j]].province.toLowerCase().includes(this.state.searchProvince)) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+						}
 					}
 				}
-				else if (this.state.searchNumber != null && this.state.searchEmail != null) {
-					if (obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
-						this.populate(items, obj, i)
+
+				if (this.state.searchCity != null) {
+					if (indLen == 0 && obj[i].city != null) {
+						if (obj[i].city.toLowerCase().includes(this.state.searchCity)) {
+							if (!indices.includes(i)){
+								indices.push(i);
+							}
+						}
 					}
-				}
-				else if (this.state.searchNumber != null) {
-					if (obj[i].contact_num.includes(this.state.searchNumber)) {
-						this.populate(items, obj, i)
+					if (indLen == objLen) {
+						indLen = 0
 					}
-				}
-				else if (this.state.searchName != null) {
-					if (obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) {
-						this.populate(items, obj, i)
+					else {
+						for (var j = 0; j < indices.length; j++){
+							if (obj[indices[j]].city == null) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+							else if (!obj[indices[j]].city.toLowerCase().includes(this.state.searchCity)) {
+								indices.splice(indices[j],1);
+								j--;
+							}
+						}
 					}
-				}
-				else if (this.state.searchEmail != null) {
-					if (obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
-						this.populate(items, obj, i)
-					}
-				}
-				// if no search fields are entered, we still want to show the total list
-				else {
-						this.populate(items, obj, i)
 				}
 			}
-  
+			if (this.state.searchEmail == null && this.state.searchName == null && this.state.searchProvince == null && this.state.searchCity == null) {
+				indices = []
+				for (var i = 0; i < objLen; i++) {
+					this.populate(items, obj, i)
+				}
+			}
+			else{
+				for (var i = 0; i < indices.length; i++){
+					this.populate(items, obj, indices[i])
+				}
+			}
+			console.log(this.state.searchName)
+			console.log(indices)
+
 		}
 		return(
 				<>
@@ -129,20 +199,26 @@ export default class SearchCandidates extends React.Component {
 						<FormGroup row>
 							<Label for="email" sm={2}>Email</Label>
 							<Col sm={10}>
-							<input type="text" className="input" onChange={this.onEmailSearch} placeholder="abc@gmail.com"/>
+							<input type="text" className="input" onChange={this.onEmailSearch} placeholder="6471231234"/>
 							</Col>
 						</FormGroup>
 						<FormGroup row>
-							<Label for="phone" sm={2}>Phone Number</Label>
+							<Label for="province" sm={2}>Province</Label>
 							<Col sm={10}>
-							<input type="text" className="input" onChange={this.onNumberSearch} placeholder="6471231234"/>
+							<input type="text" className="input" onChange={this.onProvinceSearch} placeholder="ON"/>
+							</Col>
+						</FormGroup>
+						<FormGroup row>
+							<Label for="city" sm={2}>City</Label>
+							<Col sm={10}>
+							<input type="text" className="input" onChange={this.onCitySearch} placeholder="Toronto"/>
 							</Col>
 						</FormGroup>
 					</Col>
 					<Col lg>
 						<div className="searchResults">
 						<h4>Results</h4>
-						<p>(Found {objLen} Cleaners)</p>
+						<p>(Search The Total {objLen} Cleaners)</p>
 						<Table>
 							<thead>
 								<tr>
