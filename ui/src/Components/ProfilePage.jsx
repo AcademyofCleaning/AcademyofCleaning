@@ -101,6 +101,27 @@ export default class ProfilePage extends React.Component {
         )
       }
   }
+
+
+  if (this.state.profile && this.state.profile.resultRefs) {
+    const refs = this.state.profile.resultRefs;
+    var refLen = Object.keys(refs).length;
+    var references = [];
+
+    // Builds table with JSON object items passed in
+
+    if (refLen == 0) {
+      references.push(<tr><th>Reference</th><td>Not Provided</td></tr>)
+    }
+
+    for (var i = 0; i < refLen; i++) {
+      references.push(<tr><th>Reference {i+1}</th>
+        <td><div>{refs[i].first_name} {refs[i].last_name}</div>
+        <div>{refs[i].email}</div><div>{refs[i].contact_num.substring(0,3)}-{refs[i].contact_num.substring(3,6)}-{refs[i].contact_num.substring(6,10)} x {refs[i].contact_ext}</div>
+        <div>{refs[i].relationship}</div></td></tr>)
+    }
+  }
+  
     if (this.state.loading == true) {
       return(
        <Loading/> 
@@ -136,7 +157,7 @@ export default class ProfilePage extends React.Component {
                   <tr>
                     <th>Phone Number</th>
                     {this.state.profile.result.contact_ext ? (
-                    <td>{this.state.profile.result.contact_num}  x  {this.state.profile.result.contact_ext}</td>
+                    <td>{this.state.profile.result.contact_num.substring(0,3)}-{this.state.profile.result.contact_num.substring(3,6)}-{this.state.profile.result.contact_num.substring(6,10)}  x  {this.state.profile.result.contact_ext}</td>
                   ) : <td>{this.state.profile.result.contact_num}</td>}
                   </tr>
                   <tr>
@@ -153,6 +174,11 @@ export default class ProfilePage extends React.Component {
                       <td>{this.state.profile.result.dob.substring(0,2)}/{this.state.profile.result.dob.substring(2,4)}/{this.state.profile.result.dob.substring(4,8)}</td>
                       ) : <td>Not Provided</td>}
                   </tr>
+
+
+                  {references}
+
+
                   <tr>
                     <th>Current Occupation</th>
                     {this.state.profile.result.dob ? (
