@@ -60,7 +60,6 @@ module.exports.getProfile = async (event) => {
       {
         result: result.rows[0],
         resultRefs: resultRefs.rows,
-        resultRefs: resultRefs.rows.length,
       },
       null,
       2
