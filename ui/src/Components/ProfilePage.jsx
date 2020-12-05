@@ -143,7 +143,7 @@ export default class ProfilePage extends React.Component {
                     <th>Address</th>
                     {this.state.profile.result.address ? (
                         <td><div>{this.state.profile.result.address}</div>
-                        <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code}  {this.state.profile.result.province}</div>
+                        <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code.substring(0,3)} {this.state.profile.result.postal_code.substring(3,6)}   {this.state.profile.result.province}</div>
                         </td>
                       ) : <td>Not Provided</td>}
                   </tr>
