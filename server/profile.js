@@ -42,6 +42,13 @@ module.exports.getProfile = async (event) => {
     }
   }
 
+  const selectRefs = "SELECT * FROM has_ref LEFT JOIN reference ON has_ref.ref_id = reference.ref_id WHERE has_ref.profile_id = $1";
+  const values2 = [profileId]
+
+  const resultRefs = await pool.query(selectRefs, values2);
+  console.log(resultRefs)
+
+
   return {
       statusCode: 200,
       headers:{
@@ -52,6 +59,8 @@ module.exports.getProfile = async (event) => {
       body: JSON.stringify(
       {
         result: result.rows[0],
+        resultRefs: resultRefs.rows,
+        resultRefs: resultRefs.rows.length,
       },
       null,
       2
