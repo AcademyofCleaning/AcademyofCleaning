@@ -6,12 +6,6 @@ const pool = new Pool({
     database: process.env.database,
     password: process.env.password,
     port: process.env.port,
-    // user: 'master',
-    // host: 'aoc-db-dev.cjynw6x3q1ly.us-west-1.rds.amazonaws.com',
-    // database: 'aocdb',
-    // password: 'msci3422020',
-    // port: 5432,
-
 });
 
 // Application States
