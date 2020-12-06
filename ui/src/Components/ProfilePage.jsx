@@ -62,7 +62,7 @@ export default class ProfilePage extends React.Component {
               {this.state.profile.result.city ? <H4>Servicing the {this.state.profile.result.city} area</H4> : <div/>}
               <Table className="row-buffer" responsive>
                 <tbody>
-                <tr>
+                  <tr>
                     <td>Email</td>
                     <td>{this.state.profile.result.email}</td>
                   </tr>
@@ -79,7 +79,7 @@ export default class ProfilePage extends React.Component {
                     <td>{this.state.profile.result.city}</td>
                   </tr>
                   {this.state.profile.result.has_tools ? (
-                    <tr>
+                  <tr>
                     <td>Tool Pictures</td>
                     <td><a target="_blank" href={toolPicUrl + this.state.profile.result.profile_id + '.pdf'}>Tool Picture Link</a></td>
                   </tr>
@@ -96,7 +96,6 @@ export default class ProfilePage extends React.Component {
             </div>
           )}
         </Form>
-        
       </div>
     );
     }
