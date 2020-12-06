@@ -46,8 +46,6 @@ module.exports.getProfile = async (event) => {
   const values2 = [profileId]
 
   const resultRefs = await pool.query(selectRefs, values2);
-  // console.log(resultRefs)
-
 
   return {
       statusCode: 200,
