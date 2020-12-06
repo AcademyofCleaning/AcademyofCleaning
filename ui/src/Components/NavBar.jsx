@@ -33,7 +33,7 @@ const NavBar = (props) => {
               <NavLink href="/search/">Search</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/getCertified/">Get Certified</NavLink>
+              <NavLink href="/learn/">Learn</NavLink>
             </NavItem>
             
             <UncontrolledDropdown nav>
