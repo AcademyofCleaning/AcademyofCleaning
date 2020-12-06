@@ -43,6 +43,8 @@ export default class ProfilePage extends React.Component {
 
     this.handlePendingVerParam = this.handlePendingVerParam.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.formatNumber = this.formatNumber.bind(this);
+    this.formatRefs = this.formatRefs.bind(this);
   }
 
   async componentDidMount()
@@ -70,8 +72,40 @@ export default class ProfilePage extends React.Component {
     .then(res => {
       this.setState({profile: res})
     })
-    this.render()
-};
+    this.render();
+  };
+
+  /* This method formats phone numbers */
+  formatNumber (number, ext) {
+    if (this.state.profile){}
+    let formattedNum = number.substring(0,3).concat("-").concat(number.substring(3,6)).concat("-").concat(number.substring(6,10));
+
+    if (ext != null) {
+      formattedNum = formattedNum.concat(" x ").concat(ext)
+    }
+    return formattedNum;    
+  };
+
+  /* This method formats references depending on how many are available for the profile*/
+  formatRefs() {
+    if (this.state.profile && this.state.profile.resultRefs) {
+        const refs = this.state.profile.resultRefs;
+        const refLen = Object.keys(refs).length;
+        let references = [];
+
+        if (refLen == 0) {
+          references.push(<tr><th>Reference</th><td>Not Provided</td></tr>)
+        }
+
+        for (let i = 0; i < refLen; i++) {
+          references.push(<tr><th>Reference {i+1}</th>
+            <td><div>{refs[i].first_name} {refs[i].last_name}</div>
+            <div>{refs[i].email}</div><div>{this.formatNumber(refs[i].contact_num, refs[i].contact_ext)}</div>
+            <div>{refs[i].relationship}</div></td></tr>)
+        }
+        return references;
+      }
+  };
 
   render(){
     const editOrValidateCTAs = ()=>{
@@ -101,26 +135,6 @@ export default class ProfilePage extends React.Component {
         )
       }
   }
-
-
-  if (this.state.profile && this.state.profile.resultRefs) {
-    const refs = this.state.profile.resultRefs;
-    var refLen = Object.keys(refs).length;
-    var references = [];
-
-    // Builds table with JSON object items passed in
-
-    if (refLen == 0) {
-      references.push(<tr><th>Reference</th><td>Not Provided</td></tr>)
-    }
-
-    for (var i = 0; i < refLen; i++) {
-      references.push(<tr><th>Reference {i+1}</th>
-        <td><div>{refs[i].first_name} {refs[i].last_name}</div>
-        <div>{refs[i].email}</div><div>{refs[i].contact_num.substring(0,3)}-{refs[i].contact_num.substring(3,6)}-{refs[i].contact_num.substring(6,10)} x {refs[i].contact_ext}</div>
-        <div>{refs[i].relationship}</div></td></tr>)
-    }
-  }
   
     if (this.state.loading == true) {
       return(
@@ -128,6 +142,7 @@ export default class ProfilePage extends React.Component {
       );
     } else {
     return(
+
       <div>
         <Form>
           {!this.state.profile && this.state.loading == false ? (
@@ -157,7 +172,7 @@ export default class ProfilePage extends React.Component {
                   <tr>
                     <th>Phone Number</th>
                     {this.state.profile.result.contact_ext ? (
-                    <td>{this.state.profile.result.contact_num.substring(0,3)}-{this.state.profile.result.contact_num.substring(3,6)}-{this.state.profile.result.contact_num.substring(6,10)}  x  {this.state.profile.result.contact_ext}</td>
+                    <td>{this.formatNumber(this.state.profile.result.contact_num, this.state.profile.result.contact_ext)}</td>
                   ) : <td>{this.state.profile.result.contact_num}</td>}
                   </tr>
                   <tr>
@@ -175,9 +190,7 @@ export default class ProfilePage extends React.Component {
                       ) : <td>Not Provided</td>}
                   </tr>
 
-
-                  {references}
-
+                  {this.formatRefs()}
 
                   <tr>
                     <th>Current Occupation</th>
