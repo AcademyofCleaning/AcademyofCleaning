@@ -29,12 +29,12 @@ const s3Params = (bucket_name, documentType, profileId) => {
         ContentType: 'application/pdf',
         Key: `${documentType}/${profileId}.pdf`,
     }
-}
+} 
 
 module.exports.editProfile = async (event, callback )=> {
     const body = JSON.parse(event.body);
-    const text = 'UPDATE cleaner_profile SET(first_name, last_name, contact_num, email, has_tools) = ($1, $2, $3, $4, $5) WHERE profile_id = $6'
-    const values = [body.firstName, body.lastName, body.number, body.email, body.toolPic, body.id]
+    const text = 'UPDATE cleaner_profile SET(first_name, middle_name, last_name, address, city, postal_code, province, dob, current_occup, contact_num, email, has_tools) = ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) WHERE profile_id = $13'
+    const values = [body.firstName, body.middleName, body.lastName, body.address, body.city, body.postal, body.province, body.dob, body.currentOccupation, body.number, body.email, body.toolPic, body.id]
 
     const result = await pool.query(text, values);
 
