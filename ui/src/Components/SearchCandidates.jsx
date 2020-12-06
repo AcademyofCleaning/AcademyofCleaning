@@ -15,6 +15,7 @@ export default class SearchCandidates extends React.Component {
 			searchEmail: null,
 			searchCity: null,
 			searchProvince: null,
+			// searchVerified: false,
 		};
 	}
 
@@ -39,14 +40,18 @@ export default class SearchCandidates extends React.Component {
 		this.setState({ searchEmail: event.target.value.toLowerCase() });
 		};
 
-	onProvinceSearch = (event) => {
-		this.setState({ searchProvince: event.target.value });
-		};
+	// onProvinceSearch = (event) => {
+	// 	this.setState({ searchProvince: event.target.value });
+	// 	};
 	
-	onCitySearch = (event) => {
-		this.setState({ searchCity: event.target.value });
-		};
-		
+	// onCitySearch = (event) => {
+	// 	this.setState({ searchCity: event.target.value });
+	// 	};
+
+	// onVerifiedCheck = (event) => {
+	// 	this.setState({ searchVerified: event.target.checked})
+	// }
+
 	// this method populates the table of items with the parameters passed through the state
 	populate = (items, obj, i)=> {
 		items.push(<tr>
@@ -58,6 +63,7 @@ export default class SearchCandidates extends React.Component {
 	}
 
 	render(){
+		// console.log(this.state.searchVerified)
 		if (this.state.search) {
 			const obj = this.state.search.result
 			var objLen = Object.keys(obj).length;
@@ -68,7 +74,6 @@ export default class SearchCandidates extends React.Component {
 
 			// Builds table with JSON object items passed in
 			for (var i = 0; i < objLen; i++) {
-
 				if (this.state.searchName != null) {
 					if (indLen == 0) {
 						if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName)) {
@@ -90,7 +95,27 @@ export default class SearchCandidates extends React.Component {
 						}
 					}
 				}
-				
+
+				// if (this.state.searchVerified == true) {
+				// 	if (indLen == 0) {
+				// 		if (obj[i].app_status.toLowerCase().includes('completed')) {
+				// 			if (!indices.includes(i)){
+				// 				indices.push(i);
+				// 			}						}
+				// 	}
+				// 	if (indLen == objLen) {
+				// 		indLen = 0
+				// 	}
+				// 	else {
+				// 		for (var j = 0; j < indices.length; j++){
+				// 			if (!obj[indices[j]].app_status.toLowerCase().includes('completed')) {
+				// 				indices.splice(indices[j],1);
+				// 				j--;
+				// 			}
+				// 		}
+				// 	}
+				// }
+
 				if (this.state.searchEmail != null) {
 					if (indLen == 0) {
 						if (obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
@@ -112,57 +137,59 @@ export default class SearchCandidates extends React.Component {
 					}
 				}
 
-				if (this.state.searchProvince != null) {
-					if (indLen == 0 && obj[i].province != null) {
-						if (obj[i].province.toLowerCase().includes(this.state.searchProvince)) {
-							if (!indices.includes(i)){
-								indices.push(i);
-							}
-						}
-					}
-					if (indLen == objLen) {
-						indLen = 0
-					}
-					else {
-						for (var j = 0; j < indices.length; j++){
-							if (obj[indices[j]].province == null) {
-								indices.splice(indices[j],1);
-								j--;
-							}
-							else if (!obj[indices[j]].province.toLowerCase().includes(this.state.searchProvince)) {
-								indices.splice(indices[j],1);
-								j--;
-							}
-						}
-					}
-				}
+				// if (this.state.searchProvince != null) {
+				// 	if (indLen == 0 && obj[i].province != null) {
+				// 		if (obj[i].province.toLowerCase().includes(this.state.searchProvince)) {
+				// 			if (!indices.includes(i)){
+				// 				indices.push(i);
+				// 			}
+				// 		}
+				// 	}
+				// 	if (indLen == objLen) {
+				// 		indLen = 0
+				// 	}
+				// 	else {
+				// 		for (var j = 0; j < indices.length; j++){
+				// 			if (obj[indices[j]].province == null) {
+				// 				indices.splice(indices[j],1);
+				// 				j--;
+				// 			}
+				// 			else if (!obj[indices[j]].province.toLowerCase().includes(this.state.searchProvince)) {
+				// 				indices.splice(indices[j],1);
+				// 				j--;
+				// 			}
+				// 		}
+				// 	}
+				// }
 
-				if (this.state.searchCity != null) {
-					if (indLen == 0 && obj[i].city != null) {
-						if (obj[i].city.toLowerCase().includes(this.state.searchCity)) {
-							if (!indices.includes(i)){
-								indices.push(i);
-							}
-						}
-					}
-					if (indLen == objLen) {
-						indLen = 0
-					}
-					else {
-						for (var j = 0; j < indices.length; j++){
-							if (obj[indices[j]].city == null) {
-								indices.splice(indices[j],1);
-								j--;
-							}
-							else if (!obj[indices[j]].city.toLowerCase().includes(this.state.searchCity)) {
-								indices.splice(indices[j],1);
-								j--;
-							}
-						}
-					}
-				}
+				// if (this.state.searchCity != null) {
+				// 	if (indLen == 0 && obj[i].city != null) {
+				// 		if (obj[i].city.toLowerCase().includes(this.state.searchCity)) {
+				// 			if (!indices.includes(i)){
+				// 				indices.push(i);
+				// 			}
+				// 		}
+				// 	}
+				// 	if (indLen == objLen) {
+				// 		indLen = 0
+				// 	}
+				// 	else {
+				// 		for (var j = 0; j < indices.length; j++){
+				// 			if (obj[indices[j]].city == null) {
+				// 				indices.splice(indices[j],1);
+				// 				j--;
+				// 			}
+				// 			else if (!obj[indices[j]].city.toLowerCase().includes(this.state.searchCity)) {
+				// 				indices.splice(indices[j],1);
+				// 				j--;
+				// 			}
+				// 		}
+				// 	}
+				// }
 			}
-			if (this.state.searchEmail == null && this.state.searchName == null && this.state.searchProvince == null && this.state.searchCity == null) {
+			if (this.state.searchEmail == null && this.state.searchName == null 
+				// && this.state.searchProvince == null && this.state.searchCity == null
+				) {
 				indices = []
 				for (var i = 0; i < objLen; i++) {
 					this.populate(items, obj, i)
@@ -199,10 +226,10 @@ export default class SearchCandidates extends React.Component {
 						<FormGroup row>
 							<Label for="email" sm={2}>Email</Label>
 							<Col sm={10}>
-							<input type="text" className="input" onChange={this.onEmailSearch} placeholder="6471231234"/>
+							<input type="text" className="input" onChange={this.onEmailSearch} placeholder="abc@gmail.com"/>
 							</Col>
 						</FormGroup>
-						<FormGroup row>
+						{/* <FormGroup row>
 							<Label for="province" sm={2}>Province</Label>
 							<Col sm={10}>
 							<input type="text" className="input" onChange={this.onProvinceSearch} placeholder="ON"/>
@@ -213,12 +240,18 @@ export default class SearchCandidates extends React.Component {
 							<Col sm={10}>
 							<input type="text" className="input" onChange={this.onCitySearch} placeholder="Toronto"/>
 							</Col>
-						</FormGroup>
+						</FormGroup> */}
+						{/* <FormGroup row>
+							<Label for="verification" sm={2}>Verified</Label>
+							<Col sm={10}>
+							<input type="checkbox" onClick={this.onVerifiedCheck}/>
+							</Col>
+						</FormGroup> */}
 					</Col>
 					<Col lg>
 						<div className="searchResults">
 						<h4>Results</h4>
-						<p>(Search The Total {objLen} Cleaners)</p>
+						<p>(Search The {objLen} Total Cleaners)</p>
 						<Table>
 							<thead>
 								<tr>
