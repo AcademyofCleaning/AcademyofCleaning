@@ -75,6 +75,17 @@ p {
   font-size: larger;
 }
 
+/* Customize p tag with brand font */
+th {
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
+  text-align: right;
+}
+
+tr {
+  text-align: left;
+}
+
 /* Creates large vertical space between homepage elements */
 .row-buffer {
   margin-top:3rem; 
@@ -100,4 +111,19 @@ p {
 
 .theme-font: {
   font-family: 'Roboto', sans-serif;
+}
+
+.push-left {
+  float: left;
+  display: table;
+}
+
+.push-right {
+  float: right;
+  display: table;
+}
+
+.width-fit {
+  width: 100%;
+  display: table;
 }
