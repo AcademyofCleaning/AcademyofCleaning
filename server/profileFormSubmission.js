@@ -46,7 +46,7 @@ module.exports.saveProfile = async (event, callback )=> {
   if (body.reference1Name) {
     console.log("in ref 1 block")
     let name = body.reference1Name.split(" ")
-    const ref1Values = [name[0], name[1], body.reference1Email, "647-781-1815", body.reference1Relationship]
+    const ref1Values = [name[0], name[1], body.reference1Email, "6477811815", body.reference1Relationship]
     const ref1Result = await pool.query(refInsertStatement, ref1Values) 
     let ref1Id = ref1Result.rows[0].ref_id
     await pool.query(hasRefInsertStatement, [profileId, ref1Id])
@@ -56,7 +56,7 @@ module.exports.saveProfile = async (event, callback )=> {
   if (body.reference2Name) {
     console.log("in ref 2 block")
     let name = body.reference2Name.split(" ")
-    const ref2Values = [name[0], name[1], body.reference2Email, "905-334-1458", body.reference2Relationship]
+    const ref2Values = [name[0], name[1], body.reference2Email, "9053341458", body.reference2Relationship]
     const ref2Result = await pool.query(refInsertStatement, ref2Values) 
     let ref2Id = ref2Result.rows[0].ref_id
     await pool.query(hasRefInsertStatement, [profileId, ref2Id])

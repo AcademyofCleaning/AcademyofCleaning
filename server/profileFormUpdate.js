@@ -47,7 +47,7 @@ module.exports.editProfile = async (event, callback )=> {
      * Update the profile 
      */
     const sqlProfileUpdate = 'UPDATE cleaner_profile SET(first_name, last_name, contact_num, email, has_tools) = ($1, $2, $3, $4, $5) WHERE profile_id = $6'
-    const dbValuesToBeUpdated = [responseBody.firstName, responseBody.lastName, responseBody.number, responseBody.email, responseBody.toolPic, responseBody.id]
+    const dbValuesToBeUpdated = [body.firstName, body.lastName, body.number, body.email, body.toolPic, body.id]
     const result = await pool.query(sqlProfileUpdate, dbValuesToBeUpdated);
 
     /**
@@ -55,21 +55,21 @@ module.exports.editProfile = async (event, callback )=> {
      */
     let stateUpdate = "";
     const appStatusUpdateSQL = 'UPDATE cleaner_profile SET app_status = $1 WHERE profile_id = $2';
-    if(responseBody.readyForVerification == 1){
-      const readyToVerifyValues = [READY_FOR_VEFIFICATION, responseBody.id]
+    if(body.readyForVerification == 1){
+      const readyToVerifyValues = [READY_FOR_VEFIFICATION, body.id]
       stateUpdate = await pool.query(appStatusUpdateSQL, readyToVerifyValues);
     } 
-    if(responseBody.readyForVerification == 0){
-      const inProgressValues = [IN_PROGRESS, responseBody.id]
+    if(body.readyForVerification == 0){
+      const inProgressValues = [IN_PROGRESS, body.id]
       stateUpdate = await pool.query(appStatusUpdateSQL, inProgressValues);
     }
 
     /**
      * Update the files 
      */
-    let profileId = responseBody.id;
-    let govId = responseBody.govId;
-    let toolPic = responseBody.toolPic;
+    let profileId = body.id;
+    let govId = body.govId;
+    let toolPic = body.toolPic;
     s3Urls[0] = govId == true ? s3.getSignedUrl('putObject', s3Params(LICENSE_BUCKET, "licenses", profileId)) : '';
     s3Urls[1] = toolPic == true ? s3.getSignedUrl('putObject', s3Params(TOOLS_BUCKET, "tool pics", profileId)): '';
 
