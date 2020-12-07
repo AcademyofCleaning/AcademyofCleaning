@@ -46,7 +46,7 @@ export default class SearchCandidates extends React.Component {
 	populate = (items, obj, i)=> {
 		items.push(<tr>
 			<th scope="row">{i+1}</th>
-			<td ><a href={"/profiles/"+obj[i].profile_id}>{obj[i].first_name} {obj[i].last_name}</a></td>
+			<td ><a href={"/profiles/"+obj[i].profile_id+"?admin=1"}>{obj[i].first_name} {obj[i].last_name}</a></td>
 			<td>{obj[i].email}</td>
 			<td>{obj[i].contact_num}</td>
 		</tr>)

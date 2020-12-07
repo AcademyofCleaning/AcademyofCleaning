@@ -3,11 +3,21 @@ import { Button, Col, FormGroup, Label, Input} from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Loading } from './auth/Loading';
 
+
 //Uncomment/Comment based on env
 //const ApiUrl = "http://localhost:3001/dev/editProfile";
 const ApiUrl = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/editProfile";
-const GetApiUrl = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=`;
 
+//URLS for GET CALL
+const GetApiUrl = `https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/viewProfile?id=`;
+// const GetApiUrl = "http://localhost:3001/dev/viewProfile?id="
+
+// URLS for Files 
+const toolPicUrl = 'https://cleaner-tool-pics.s3-us-west-1.amazonaws.com/'
+
+// COPIES FOR REACT CLIENT 
+const readyForVerificationCopy = "Submit";
+const uploadCopy = "Save";
 
 class CreateProfile extends React.Component {
     constructor(props) {
@@ -42,6 +52,7 @@ class CreateProfile extends React.Component {
             toolPic: null,
             hinFlag: false,
             hinPic: null,
+            readyForVerification:0,
         };
 
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -65,10 +76,11 @@ class CreateProfile extends React.Component {
         this.handleLicenseUpload = this.handleLicenseUpload.bind(this);
         this.handleToolUpload = this.handleToolUpload.bind(this);
         this.handleHinUpload = this.handleHinUpload.bind(this);
+        this.handleAppStatusUpdate = this.handleAppStatusUpdate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // function to get new information 
+    // Get information to populate the profile before editing
     async componentDidMount()
     {
       const url = GetApiUrl+this.state.props.match.params.id;
@@ -115,6 +127,14 @@ class CreateProfile extends React.Component {
 
     handleFirstNameChange(event) {
         this.setState({firstName: event.target.value});
+    }
+
+    handleAppStatusUpdate(event){
+        if(event.target.name == "true"){
+            this.setState({readyForVerification: 1});
+        } else {
+            this.setState({readyForVerification: 0});
+        }
     }
 
     handleLastNameChange(event) {
@@ -190,7 +210,6 @@ class CreateProfile extends React.Component {
         }  
     };
 
-    /** NEW API to be set - PUT request that updates the Entry!*/
     handleSubmit(event) {
         this.checkIfBlank();
         event.preventDefault();
@@ -224,6 +243,7 @@ class CreateProfile extends React.Component {
                 toolPic:this.state.toolPicFlag,
                 hinFlag:this.state.hinFlag,
                 id:this.state.props.match.params.id, //added profile ID to payload
+                readyForVerification: this.state.readyForVerification,
                 }),
             })
             .then(res => res.json())
@@ -255,9 +275,9 @@ class CreateProfile extends React.Component {
     
     render() {
         const checkToolFile = ()=>{
-            if(this.state.toolPicUrl!==''){
+            if(this.state.profile.result.has_tools){
                 // Currently displays "Took Pic File Uploaded" above the field, which seems incorrect. Until clarification, commenting out.
-                // return <a href={this.state.toolPicUrl}> Tool Pic File Uploaded </a>
+                return <a target="_blank" href={toolPicUrl + this.state.props.match.params.id + '.pdf'}>Tool Picture Link</a>
             } 
         }
         if (this.state.loading) {
@@ -403,6 +423,7 @@ class CreateProfile extends React.Component {
                    </>
                );
            }
+
     }
 }
 
