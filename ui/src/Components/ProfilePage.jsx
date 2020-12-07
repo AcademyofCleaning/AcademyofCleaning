@@ -94,11 +94,11 @@ export default class ProfilePage extends React.Component {
         let references = [];
 
         if (refLen == 0) {
-          references.push(<tr><th>Reference</th><td>Not Provided</td></tr>)
+          references.push(<tr><td>Reference</td><td>Not Provided</td></tr>)
         }
 
         for (let i = 0; i < refLen; i++) {
-          references.push(<tr><th>Reference {i+1}</th>
+          references.push(<tr><td>Reference {i+1}</td>
             <td><div>{refs[i].first_name} {refs[i].last_name}</div>
             <div>{refs[i].email}</div><div>{this.formatNumber(refs[i].contact_num, refs[i].contact_ext)}</div>
             <div>{refs[i].relationship}</div></td></tr>)
@@ -170,13 +170,13 @@ export default class ProfilePage extends React.Component {
                     <td>{this.state.profile.result.email}</td>
                   </tr>
                   <tr>
-                    <th>Phone Number</th>
+                    <td>Phone Number</td>
                     {this.state.profile.result.contact_ext ? (
                     <td>{this.formatNumber(this.state.profile.result.contact_num, this.state.profile.result.contact_ext)}</td>
                   ) : <td>{this.state.profile.result.contact_num}</td>}
                   </tr>
                   <tr>
-                    <th>Address</th>
+                    <td>Address</td>
                     {this.state.profile.result.address ? (
                         <td><div>{this.state.profile.result.address}</div>
                         <div>{this.state.profile.result.city},  {this.state.profile.result.postal_code.substring(0,3)} {this.state.profile.result.postal_code.substring(3,6)}   {this.state.profile.result.province}</div>
@@ -184,34 +184,34 @@ export default class ProfilePage extends React.Component {
                       ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
-                    <th>Date of Birth (MM/DD/YYYY)</th>
+                    <td>Date of Birth</td>
                     {this.state.profile.result.dob ? (
-                      <td>{this.state.profile.result.dob.substring(0,2)}/{this.state.profile.result.dob.substring(2,4)}/{this.state.profile.result.dob.substring(4,8)}</td>
+                      <td>{this.state.profile.result.dob}</td>
                       ) : <td>Not Provided</td>}
                   </tr>
 
                   {this.formatRefs()}
 
                   <tr>
-                    <th>Current Occupation</th>
+                    <td>Current Occupation</td>
                     {this.state.profile.result.dob ? (
                       <td>{this.state.profile.result.current_occup}</td>
                       ) : <td>Not Provided</td>}
                   </tr>
                   <tr>
-                    <th>Canadian ID Provided?</th>
+                    <td>Canadian ID Provided?</td>
                     {this.state.profile.result.canadian_id ? (
                     <td>Yes</td>
                   ) : <td>No</td>}
                   </tr>
                   <tr>
-                    <th>Health Insurance Provided?</th>
+                    <td>Health Insurance Provided?</td>
                     {this.state.profile.result.hin ? (
                     <td>Yes</td>
                   ) : <td>No</td>}
                   </tr>
                   <tr>
-                    <th>Government Issued ID Provided?</th>
+                    <td>Government Issued ID Provided?</td>
                     {this.state.profile.result.gov_id ? (
                     <td>Yes</td>
                   ) : <td>No</td>}

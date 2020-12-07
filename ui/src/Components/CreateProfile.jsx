@@ -79,7 +79,7 @@ class CreateProfile extends React.Component {
     }
 
     handlePostalChange(event) {
-        this.setState({postal: event.target.value});
+        this.setState({postal: event.target.value.replace(/\s+/g, '')});
     }
 
     handleCityChange(event) {
