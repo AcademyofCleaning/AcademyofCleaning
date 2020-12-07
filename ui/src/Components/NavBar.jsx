@@ -10,11 +10,10 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  NavbarText
+  DropdownItem
 } from 'reactstrap';
+import NavBarAuthenticationButton from './NavBarAuthenticationButton';
 import './App.css';
-
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +55,8 @@ const NavBar = (props) => {
             </UncontrolledDropdown>
 
             <UncontrolledDropdown>
-              <DropdownToggle nav caret>
+              <NavBarAuthenticationButton />
+              {/* <DropdownToggle nav caret>
                 My Account
               </DropdownToggle>
               <DropdownMenu right>
@@ -70,7 +70,7 @@ const NavBar = (props) => {
                 <DropdownItem href="/signout/:id">
                   Sign out
                 </DropdownItem>
-              </DropdownMenu>
+              </DropdownMenu> */}
             </UncontrolledDropdown>
           </Nav>
         </Collapse>

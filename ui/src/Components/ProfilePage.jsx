@@ -165,8 +165,8 @@ export default class ProfilePage extends React.Component {
               </div>
               <Table responsive>
                 <tbody>
-                <tr>
-                    <th>Email</th>
+                  <tr>
+                    <td>Email</td>
                     <td>{this.state.profile.result.email}</td>
                   </tr>
                   <tr>
@@ -218,8 +218,8 @@ export default class ProfilePage extends React.Component {
                   </tr>
 
                   {this.state.profile.result.has_tools ? (
-                    <tr>
-                    <th>Tool Pictures</th>
+                  <tr>
+                    <td>Tool Pictures</td>
                     <td><a target="_blank" href={toolPicUrl + this.state.profile.result.profile_id + '.pdf'}>Tool Picture Link</a></td>
                   </tr>
                   ) : <div/>}
@@ -229,7 +229,6 @@ export default class ProfilePage extends React.Component {
           )}
         </Form>
         {editOrValidateCTAs()}
-        
       </div>
     );
     }
