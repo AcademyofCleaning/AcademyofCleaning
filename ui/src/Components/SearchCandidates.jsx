@@ -13,7 +13,8 @@ export default class SearchCandidates extends React.Component {
 			props: props,
 			searchName: null,
 			searchEmail: null,
-			searchNumber: null,
+			searchVerified: false,
+			searchPendingVerified: false,
 		};
 	}
 
@@ -38,8 +39,12 @@ export default class SearchCandidates extends React.Component {
 		this.setState({ searchEmail: event.target.value.toLowerCase() });
 		};
 
-	onNumberSearch = (event) => {
-		this.setState({ searchNumber: event.target.value });
+	onVerifiedSearch = (event) => {
+		this.setState({ searchVerified: event.target.checked});
+		};
+	
+	onPendingVerifiedSearch = (event) => {
+		this.setState({ searchPendingVerified: event.target.checked});
 		};
 	
 	// this method populates the table of items with the parameters passed through the state
@@ -61,42 +66,72 @@ export default class SearchCandidates extends React.Component {
 
 			// Builds table with JSON object items passed in
 			for (var i = 0; i < objLen; i++) {
-				// !!! Link row to profile eventually
 
 				//All of these if statements are necessary to make sure that the results returned are accurate. If we don't handle all of these cases, it will not populate dynamically
 				//These statements are also necessary to make sure that the filters work together, and not independently 
-				if (this.state.searchName != null && this.state.searchNumber != null && this.state.searchEmail != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
-						this.populate(items)
+				if (this.state.searchName != null && this.state.searchEmail != null && ((this.state.searchVerified == false && this.state.searchPendingVerified == false) || this.state.searchVerified == true && this.state.searchPendingVerified == true)) {
+					if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName) && obj[i].email.toLowerCase().includes(this.state.searchEmail) && (obj[i].app_status.toLowerCase().includes('pending validaton') || obj[i].app_status.toLowerCase().includes('completed validation'))) {
+						this.populate(items, obj, i)
 					}
 				}
-				else if (this.state.searchName != null && this.state.searchNumber != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].contact_num.includes(this.state.searchNumber)) {
+				else if (this.state.searchName != null && this.state.searchEmail != null && this.state.searchVerified == true) {
+					if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName) && obj[i].email.toLowerCase().includes(this.state.searchEmail) && obj[i].app_status.toLowerCase().includes('completed validation')) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchName != null && this.state.searchEmail != null && this.state.searchPendingVerified == true) {
+					if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName) && obj[i].email.toLowerCase().includes(this.state.searchEmail) && obj[i].app_status.toLowerCase().includes('pending validation')) {
 						this.populate(items, obj, i)
 					}
 				}
 				else if (this.state.searchName != null && this.state.searchEmail != null) {
-					if ((obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+					if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
 						this.populate(items, obj, i)
 					}
 				}
-				else if (this.state.searchNumber != null && this.state.searchEmail != null) {
-					if (obj[i].contact_num.includes(this.state.searchNumber) && obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+				else if (this.state.searchName != null && this.state.searchVerified == true) {
+					if (obj[i].first_name.toLowerCase().includes(this.state.searchName) && obj[i].app_status.toLowerCase().includes('completed validation')) {
 						this.populate(items, obj, i)
 					}
 				}
-				else if (this.state.searchNumber != null) {
-					if (obj[i].contact_num.includes(this.state.searchNumber)) {
+				else if (this.state.searchName != null && this.state.searchPendingVerified == true) {
+					if (obj[i].first_name.toLowerCase().includes(this.state.searchName) && obj[i].app_status.toLowerCase().includes('pending validation')) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.email != null && this.state.searchVerified == true) {
+					if (obj[i].email.toLowerCase().includes(this.state.searchEmail) && obj[i].app_status.toLowerCase().includes('completed validation')) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.email != null && this.state.searchPendingVerified == true) {
+					if (obj[i].email.toLowerCase().includes(this.state.searchEmail) && obj[i].app_status.toLowerCase().includes('pending validation')) {
+						this.populate(items, obj, i)
+					}
+				}
+				// if both of these are selected, will want to show rows that match either, not both
+				else if (this.state.searchPendingVerified == true && this.state.searchVerified == true) {
+					if (obj[i].app_status.toLowerCase().includes('pending validaton') || obj[i].app_status.toLowerCase().includes('completed validation')) {
 						this.populate(items, obj, i)
 					}
 				}
 				else if (this.state.searchName != null) {
-					if (obj[i].first_name.toLowerCase().includes(this.state.searchName) || obj[i].last_name.toLowerCase().includes(this.state.searchName)) {
+					if (obj[i].first_name.concat(' ', obj[i].last_name).toLowerCase().includes(this.state.searchName)) {
 						this.populate(items, obj, i)
 					}
 				}
 				else if (this.state.searchEmail != null) {
 					if (obj[i].email.toLowerCase().includes(this.state.searchEmail)) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchVerified == true) {
+					if (obj[i].app_status.toLowerCase().includes('completed validation')) {
+						this.populate(items, obj, i)
+					}
+				}
+				else if (this.state.searchPendingVerified == true) {
+					if (obj[i].app_status.toLowerCase().includes('pending validation')) {
 						this.populate(items, obj, i)
 					}
 				}
@@ -133,16 +168,22 @@ export default class SearchCandidates extends React.Component {
 							</Col>
 						</FormGroup>
 						<FormGroup row>
-							<Label for="phone" sm={2}>Phone Number</Label>
+							<Label for="verified" sm={2}>Verified</Label>
 							<Col sm={10}>
-							<input type="text" className="input" onChange={this.onNumberSearch} placeholder="6471231234"/>
+							<input type="checkbox" className="font-small d-flex align-items-center" onChange={this.onVerifiedSearch}/>
+							</Col>
+						</FormGroup>
+						<FormGroup row >
+							<Label for="verified" sm={2}>Pending Verification</Label>
+							<Col sm={10}>
+							<input type="checkbox" className="font-small d-flex align-items-center" onChange={this.onPendingVerifiedSearch} />
 							</Col>
 						</FormGroup>
 					</Col>
 					<Col lg>
 						<div className="searchResults">
 						<h4>Results</h4>
-						<p>(Found {objLen} Cleaners)</p>
+						<p>(Found {objLen} Total Cleaners)</p>
 						<Table>
 							<thead>
 								<tr>
