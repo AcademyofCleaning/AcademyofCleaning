@@ -36,6 +36,7 @@ Detailed setup documentation that was followed can be found [here](https://docs.
 | `address` | varchar(255) | Addres of Residence | - |
 | `city` | varchar(255) | City of Residence | - |
 | `postal_code` | char(6) | Postal Code of Residence | - |
+| `province` | char(2) | Province of Residence | - |
 | `gov_id` | bool | Photo of Government Issued ID uploaded? | Default: 0 |
 | `sin` | char(9) | Canadian SIN number, optional | - |
 | `health_ins` | bool | Photo of Government Issued ID uploaded? | Default: 0 |

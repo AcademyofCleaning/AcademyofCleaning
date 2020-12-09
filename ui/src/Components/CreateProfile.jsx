@@ -5,40 +5,93 @@ import './App.css';
 
 //Uncomment/Comment based on env
 const URL = "https://bixe448nsa.execute-api.us-west-1.amazonaws.com/dev/insertFormData";
-//const URL = "http://localhost:3000/dev/insertFormData";
+//const URL = "http://localhost:3001/dev/insertFormData";
 
 class CreateProfile extends React.Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             firstName: '',
+            middleName: '',
             lastName: '',
             email: '',
+            address: '',
+            city: '',
+            postal: '',
+            province: '',
+            dob: '',
             number: '',
             profile_id: '',
+            sin: '',
+            currentOccupation: '',
             ref1Name: '',
             ref1Email: '',
+            ref1Relationship: '',
             ref2Name: '',
             ref2Email: '',
+            ref2Relationship: '',
             govIdFlag: false,
             govId: null,
             toolPicFlag: false,
             toolPic: null,
+            hinFlag: false,
+            hinPic: null,
         };
 
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleMiddleNameChange = this.handleMiddleNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handlePostalChange = this.handlePostalChange.bind(this);
+        this.handleProvinceChange = this.handleProvinceChange.bind(this);
+        this.handleDobChange = this.handleDobChange.bind(this);
+        this.handleSinChange = this.handleSinChange.bind(this);
+        this.handleCurrentOccupationChange = this.handleCurrentOccupationChange.bind(this);
         this.handleNumChange = this.handleNumChange.bind(this);
         this.handleRef1NameChange = this.handleRef1NameChange.bind(this);
         this.handleRef1EmailChange = this.handleRef1EmailChange.bind(this);
+        this.handleRef1RelationshipChange = this.handleRef1RelationshipChange.bind(this);
         this.handleRef2NameChange = this.handleRef2NameChange.bind(this);
-        this.handleRef1EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleRef2EmailChange = this.handleRef2EmailChange.bind(this);
+        this.handleRef2RelationshipChange = this.handleRef2RelationshipChange.bind(this);
         this.handleLicenseUpload = this.handleLicenseUpload.bind(this);
         this.handleToolUpload = this.handleToolUpload.bind(this);
+        this.handleHinUpload = this.handleHinUpload.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
+    handleSinChange(event) {
+        this.setState({sin: event.target.value});
+    }
+    handleCurrentOccupationChange(event) {
+        this.setState({currentOccupation: event.target.value});
+    }
+
+    handleDobChange(event) {
+        this.setState({dob: event.target.value});
+    }
+
+    handleProvinceChange(event) {
+        this.setState({province: event.target.value});
+    }
+
+    handlePostalChange(event) {
+        this.setState({postal: event.target.value});
+    }
+
+    handleCityChange(event) {
+        this.setState({city: event.target.value});
+    }
+    
+    handleAddressChange(event) {
+        this.setState({address: event.target.value});
+    }
+
+    handleMiddleNameChange(event) {
+        this.setState({middleName: event.target.value});
     }
 
     handleFirstNameChange(event) {
@@ -73,6 +126,14 @@ class CreateProfile extends React.Component {
         this.setState({ref2Email: event.target.value});
     }
 
+    handleRef1RelationshipChange(event) {
+        this.setState({ref1Relationship: event.target.value});
+    }
+
+    handleRef2RelationshipChange(event) {
+        this.setState({ref2Relationship: event.target.value});
+    }
+
     handleLicenseUpload(event) {
         this.setState({
             govIdFlag: true,
@@ -84,6 +145,13 @@ class CreateProfile extends React.Component {
         this.setState({
             toolPicFlag: true,
             toolPic: event.target.files[0]
+        });
+    }
+    
+    handleHinUpload(event) {
+        this.setState({
+            hinFlag: true,
+            hinPic: event.target.files[0]
         });
     }
 
@@ -98,20 +166,32 @@ class CreateProfile extends React.Component {
                 },
               body: JSON.stringify( { 
                 firstName:this.state.firstName, 
+                middleName:this.state.middleName, 
                 lastName:this.state.lastName,
-                email:this.state.email, 
-                number:this.state.number, 
+                address:this.state.address,
+                city:this.state.city,
+                postal: this.state.postal,
+                province: this.state.province,
+                dob: this.state.dob,
+                sin: this.state.sin,
+                currentOccupation: this.state.currentOccupation,
+                email: this.state.email, 
+                number: this.state.number, 
                 reference1Name:this.state.ref1Name,
                 reference1Email:this.state.ref1Email,
+                reference1Relationship:this.state.ref1Relationship,
                 reference2Name:this.state.ref2Name,
                 reference2Email:this.state.ref2Email,
+                reference2Relationship:this.state.ref2Relationship,
                 govId:this.state.govIdFlag,
-                toolPic:this.state.toolPicFlag
+                toolPic:this.state.toolPicFlag,
+                hinFlag:this.state.hinFlag
                 }),
             })
             .then(res => res.json())
             .then(res => {
-                res = JSON.parse(res.body)
+                // console.log(res);
+                // res = JSON.parse(res.body)
                 if (res.govIdUrl!=='') {
                     fetch(res.govIdUrl, {
                         method: "PUT",
@@ -146,19 +226,36 @@ class CreateProfile extends React.Component {
             <AvForm onSubmit={ this.handleSubmit }>
                 <div class="row-buffer side-buffer">
                 <FormGroup row>
-                <Label for="name" sm={2}><h4 className="left-align" >Complete Profile</h4></Label>
+                <Label sm={2}><h4 className="left-align" >Complete Profile</h4></Label>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="name" sm={2}>First Name</Label>
+                    <Label for="firstName" sm={2}>First Name</Label>
                     <Col sm={10}>
-                    <AvField name="name" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
-                    {/* <Input type="text" name="name" id="firstname" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName}/> */}
+                    <AvField name="firstName" type="text" placeholder="John" onChange={this.handleFirstNameChange} value={this.state.firstName} required />
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="name" sm={2}>Last Name</Label>
+                    <Label for="middleName" sm={2}>Middle Name</Label>
                     <Col sm={10}>
-                    <AvField name="name" type="text" placeholder="Doe" onChange={this.handleLastNameChange} value={this.state.lastName} required />
+                    <AvField name="middleName" type="text" placeholder="Doe" onChange={this.handleMiddleNameChange} value={this.state.middleName} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="lastName" sm={2}>Last Name</Label>
+                    <Col sm={10}>
+                    <AvField name="lastName" type="text" placeholder="Arelli" onChange={this.handleLastNameChange} value={this.state.lastName} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="dob" sm={2}>Date of Birth</Label>
+                    <Col sm={10}>
+                    <AvField name="dob" type="date" placeholder="mm/dd/yyyy" onChange={this.handleDobChange} value={this.state.dob} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="sin" sm={2}>Social Insurance Number</Label>
+                    <Col sm={10}>
+                    <AvField name="sin" type="number" placeholder="123456789" maxLength={9} minLength={9} onChange={this.handleSinChange} value={this.state.sin} required />
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
@@ -168,37 +265,82 @@ class CreateProfile extends React.Component {
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="phone" sm={2}>Phone Number</Label>
+                    <Label for="number" sm={2}>Phone Number</Label>
                     <Col sm={10}>
-                    <AvField name="phone" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
+                    <AvField name="number" type="tel" placeholder="415-879-7877" onChange={this.handleNumChange} value={this.state.number} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="address" sm={2}>Address</Label>
+                    <Col sm={10}>
+                    <AvField name="address" type="text" placeholder="100 Reindeer Street" onChange={this.handleAddressChange} value={this.state.address} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="city" sm={2}>City</Label>
+                    <Col sm={10}>
+                    <AvField name="city" type="text" placeholder="North Pole" onChange={this.handleCityChange} value={this.state.city} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="postal" sm={2}>Postal Code</Label>
+                    <Col sm={10}>
+                    <AvField name="postal" type="text" placeholder="H0H 0H0" onChange={this.handlePostalChange} value={this.state.postal} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="province" sm={2}>Province</Label>
+                    <Col sm={10}>
+                    <AvField name="province" type="text" placeholder="Arctic Circle" onChange={this.handleProvinceChange} value={this.state.province} required />
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="currentOccupation" sm={2}>Current Occupation</Label>
+                    <Col sm={10}>
+                    <AvField name="currentOccupation" type="text" placeholder="Student" onChange={this.handleCurrentOccupationChange} value={this.state.currentOccupation} required />
+                    </Col>
+                </FormGroup>
+                
+                <FormGroup className="left-align" row>
+                    <Label sm={2}>Reference 1:</Label>
+                    <Label for="ref1Name" sm={1}>Name</Label>
+                    <Col sm={2}>
+                    <Input type="text" name="ref1Name" id="referenceName" onChange={this.handleRef1NameChange} value={this.state.ref1Name}/>
+                    </Col>
+                    <Label for="ref1Email" sm={1}>Email</Label>
+                    <Col sm={2}>
+                    <Input type="email" name="ref1Email" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
+                    </Col>
+                    <Label for="ref1Relationship" sm={1}>Relationship</Label>
+                    <Col sm={2}>
+                    <Input type="text" name="ref1Email" id="referenceRelationship" onChange={this.handleRef1RelationshipChange} value={this.state.ref1Relationship}/>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label sm={2}>Reference 2:</Label>
+                    <Label for="ref2Name" sm={1}>Name</Label>
+                    <Col sm={2}>
+                    <Input type="text" name="ref2Name" id="referenceName" onChange={this.handleRef2NameChange} value={this.state.ref2Name}/>
+                    </Col>
+                    <Label for="ref2Email" sm={1}>Email</Label>
+                    <Col sm={2}>
+                    <Input type="email" name="ref2Email" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
+                    </Col>
+                    <Label for="ref2Relationship" sm={1}>Relationship</Label>
+                    <Col sm={2}>
+                    <Input type="text" name="ref2Relationship" id="referenceRelationship" onChange={this.handleRef2RelationshipChange} value={this.state.ref2Relationship}/>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="left-align" row>
+                    <Label for="hin" sm={2}>Proof of Health Insurance</Label>
+                    <Col sm={10}>
+                    <AvField name="hin" type="file" onChange={this.handleHinUpload} />
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
                     <Label for="govId" sm={2}>Government Issued ID</Label>
                     <Col sm={10}>
                     <AvField name="govId" type="file" onChange={this.handleLicenseUpload} />
-                    </Col>
-                </FormGroup>
-                <FormGroup className="left-align" row>
-                    <Label sm={2}>Reference 1:</Label>
-                    <Label for="referenceName" sm={1}>Name</Label>
-                    <Col sm={4}>
-                    <Input type="text" name="referenceName" id="referenceName" onChange={this.handleRef1NameChange} value={this.state.ref1Name}/>
-                    </Col>
-                    <Label for="referenceEmail" sm={1}>Email</Label>
-                    <Col sm={4}>
-                    <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef1EmailChange} value={this.state.ref1Email}/>
-                    </Col>
-                </FormGroup>
-                <FormGroup className="left-align" row>
-                    <Label sm={2}>Reference 2:</Label>
-                    <Label for="referenceName" sm={1}>Name</Label>
-                    <Col sm={4}>
-                    <Input type="text" name="referenceName" id="referenceName" onChange={this.handleRef2NameChange} value={this.state.ref2Name}/>
-                    </Col>
-                    <Label for="referenceEmail" sm={1}>Email</Label>
-                    <Col sm={4}>
-                    <Input type="email" name="referenceEmail" id="referenceEmail" onChange={this.handleRef2EmailChange} value={this.state.ref2Email}/>
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
