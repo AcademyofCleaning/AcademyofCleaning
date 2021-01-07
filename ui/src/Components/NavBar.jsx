@@ -35,42 +35,8 @@ const NavBar = (props) => {
             <NavItem>
               <NavLink href="/learn/">Learn</NavLink>
             </NavItem>
-            
-            <UncontrolledDropdown nav>
-              <DropdownToggle nav caret>
-                Learn More
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Cleaner
-                </DropdownItem>
-                <DropdownItem>
-                  Company
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-
             <UncontrolledDropdown>
               <NavBarAuthenticationButton />
-              {/* <DropdownToggle nav caret>
-                My Account
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem href="/profiles/:id">
-                  Edit info
-                </DropdownItem>
-                <DropdownItem href="/profiles/preferences/:id">
-                  View preferences
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="/signout/:id">
-                  Sign out
-                </DropdownItem>
-              </DropdownMenu> */}
             </UncontrolledDropdown>
           </Nav>
         </Collapse>

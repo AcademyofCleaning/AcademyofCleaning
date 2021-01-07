@@ -148,7 +148,7 @@ export default class SearchCandidates extends React.Component {
 						<div> Loading Results... </div>
 						)} 
 					{!this.state.search ? (
-						<div className="row-buffer"> Results cannot be retrieved. Please contact admin.</div>
+						<div className="row-buffer"> Loading Cleaners... </div>
 					)  :  (
 					<Form>
 					<div class="row-buffer side-buffer">
