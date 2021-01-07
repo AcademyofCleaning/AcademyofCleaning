@@ -253,7 +253,7 @@ class CreateProfile extends React.Component {
                     </Col>
                 </FormGroup>
                 <FormGroup className="left-align" row>
-                    <Label for="sin" sm={2}>Social Insurance Number</Label>
+                    <Label for="sin" sm={2}>Canadian ID</Label>
                     <Col sm={10}>
                     <AvField name="sin" type="number" placeholder="123456789" maxLength={9} minLength={9} onChange={this.handleSinChange} value={this.state.sin} required />
                     </Col>
